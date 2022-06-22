@@ -11,6 +11,9 @@ declare global {
   namespace ReactNavigation {
     interface RootParamList extends RootStackParamList {}
   }
+  interface Window {
+    Kakao: any;
+  }
 }
 
 export type RootStackParamList = {
@@ -18,7 +21,7 @@ export type RootStackParamList = {
   Modal: undefined;
   NotFound: undefined;
   PaperAdd: undefined;
-  PaperDetail: undefined;
+  PaperDetail: { id: number; name: string };
 };
 
 export type PaperStackParamList = {

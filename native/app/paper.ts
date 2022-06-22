@@ -43,7 +43,7 @@ const paperSlice = createSlice({
       console.log(action.payload);
     },
     getGiftFromId: (state: paperState, action: PayloadAction<gift>) => {
-      const newPaper = { ...state.selectedPaper, gift: action.payload };
+      const newPaper = { ...state.selectedPaper!, gift: action.payload };
       state.selectedPaper = newPaper;
     },
     getGiftByIdFails: (state: paperState, action: PayloadAction<Error>) => {

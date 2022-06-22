@@ -4,13 +4,12 @@ import { Text, View } from "../components/Themed";
 import EditScreenInfo from "../components/EditScreenInfo";
 import { user } from "../types";
 
-export default function PaperDetailScreen(params: any) {
-  //console.log(params);
+export default function PaperDetailScreen({ route, navigation }: any) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>PaperDetail</Text>
-      <Text>{params?.route.params.id}</Text>
-      <Text>{params?.route.params.name}</Text>
+      <Text>{route.params.id}</Text>
+      <Text>{route.params.name}</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       {/* <EditScreenInfo path="/screens/PaperScreen.tsx" /> */}
     </View>

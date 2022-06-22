@@ -1,7 +1,7 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { defaultAxios } from "./AxiosApi";
-import { user } from "./users";
+import { gift } from "../types";
 import {
   selectAllGifts,
   selectGiftByKey,
@@ -14,7 +14,6 @@ import {
   updateView,
   postEmailFail,
   postEmail,
-  gift,
 } from "./gifts";
 
 ////////액션
@@ -109,7 +108,7 @@ function* postGift(data: { payload: any }) {
     console.log("postGift, data:", data);
     console.log("postGift, data.payload", data.payload);
     yield call(defaultAxios, "/gift", "post", data.payload);
-    alert("선물을 보냈습니다");
+    // alert("선물을 보냈습니다");
   } catch (error: any) {
     yield put(insertGiftFail(error));
     console.error(error);
@@ -131,7 +130,7 @@ function* sendEmail(data: { payload: any }) {
     console.log("sendEmail, data.payload:", data.payload);
     console.log("giftSaga-sendEmail");
     yield call(defaultAxios, "/mail/send", "post", data.payload);
-  } catch (error) {
+  } catch (error: any) {
     yield put(postEmailFail(error));
     console.error(error);
   }

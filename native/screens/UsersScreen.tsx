@@ -9,13 +9,12 @@ import { RootState } from "../app/store";
 import ListScreen from "./ListScreen";
 
 export default function UsersScreen() {
-  const linkto = useLinkTo();
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const users = useSelector((state: RootState) => state.user.users);
   useEffect(() => {
-    dispatch(login(true));
-  }, []);
+    isFocused ? dispatch(login(true)) : null;
+  }, [isFocused]);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Users</Text>
