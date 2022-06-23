@@ -19,11 +19,28 @@ public class GiftController {
     @Autowired
     GiftService giftService;
 
-
-
-    @GetMapping("/")
+    @GetMapping("")
     public List<GiftEntity> getAllGift(){
+        log.info("getAllGift");
+        log.info(giftService.findAllGift().toString());
         return giftService.findAllGift();
+    }
+
+    // insertGift(papaer에 등록)
+    // => 프론트에서  userId, nickname, content (Body에), giftId 받아와서 등록하기
+    @PostMapping("")
+    public ResponseEntity<?> postGift(@RequestBody PaperEntity paperEntity){
+        //log.info(paperDto.toString());
+        HttpStatus httpStatus;
+        httpStatus=giftService.insertGiftInPaperAndUpdateGiftCount(paperEntity)? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
+
+        return new ResponseEntity<>(httpStatus);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<GiftEntity> getGiftById(@PathVariable String id){
+        log.info("getGiftById 실행");
+        return giftService.getGiftById(Integer.valueOf(id));
     }
 
     @GetMapping("/search/{name}")
@@ -38,21 +55,6 @@ public class GiftController {
         return giftService.viewCount(Integer.valueOf(id));
     }
 
-    @GetMapping("/{id}")
-    public Optional<GiftEntity> getGiftById(@PathVariable String id){
-        log.info("getGiftById 실행");
-        return giftService.getGiftById(Integer.valueOf(id));
-    }
 
-    // insertGift(papaer에 등록)
-    // => 프론트에서  userId, nickname, content (Body에), giftId 받아와서 등록하기
-    @PostMapping("")
-    public ResponseEntity<?> postGift(@RequestBody PaperEntity paperEntity){
-        //log.info(paperDto.toString());
-        HttpStatus httpStatus;
-        httpStatus=giftService.insertGiftInPaperAndUpdateGiftCount(paperEntity)? HttpStatus.CREATED : HttpStatus.BAD_REQUEST;
-
-        return new ResponseEntity<>(httpStatus);
-    }
 
 }
