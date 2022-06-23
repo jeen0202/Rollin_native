@@ -19,19 +19,19 @@ const paperSlice = createSlice({
       state.selectedUser = action.payload;
     },
     selectPaper: (state: paperState, action: PayloadAction<paper>) => {
-      console.log(action.payload);
+      //console.log(action.payload);
       state.selectedPaper = action.payload;
     },
     getPapers: (state: paperState, action: PayloadAction<Array<paper>>) => {
-      console.log(action);
+      // console.log(action);
       state.papers = action.payload;
     },
     loadPapers: (state: paperState) => {
       state.isLoading = true;
     },
-    load2: (state: paperState, action: PayloadAction<Object>) => {
+    addPaper: (state: paperState, action: PayloadAction<Object>) => {
       //   state.paperdata = action.payload;
-      console.log(action.payload);
+      // console.log(action.payload);
       state.selectedUser = undefined;
     },
     getPapersFail: (state: paperState, action: PayloadAction<Error>) => {
@@ -51,5 +51,5 @@ const paperSlice = createSlice({
     },
   },
 });
-export const { select, selectPaper, getPapers, getPapersFail, loadPapers, load2, getGiftFromId, getGiftByIdFails, requestGetGift } = paperSlice.actions;
+export const { select, selectPaper, getPapers, getPapersFail, loadPapers, addPaper, getGiftFromId, getGiftByIdFails, requestGetGift } = paperSlice.actions;
 export default paperSlice.reducer;

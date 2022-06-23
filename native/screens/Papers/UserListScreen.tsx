@@ -16,7 +16,7 @@ function RenderItem(props: any) {
   const me = props.me;
   return (
     <View style={{ margin: 10 }}>
-      <Link to={{ screen: item.id === me?.id ? "MyPapers" : "PaperAdd", params: { id: item.id, name: item.name } }}>
+      <Link to={{ screen: item.id === me?.id ? "MyPapers" : "PaperAdd", params: item }}>
         <View style={listStyles.item}>
           <Image source={{ uri: `${item.img}` }} style={{ width: 100, height: 100 }}></Image>
           <Text>{item.name}</Text>

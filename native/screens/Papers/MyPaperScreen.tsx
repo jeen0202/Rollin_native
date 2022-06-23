@@ -14,7 +14,7 @@ export default function MyPapersScreen({ route }: any) {
   const myPapers = useSelector((state: RootState) => state.paper.papers);
   useEffect(() => {
     dispatch(loadPapers());
-    console.log(myPapers);
+    // console.log(myPapers);
   }, []);
 
   return (
