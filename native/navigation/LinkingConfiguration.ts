@@ -22,7 +22,7 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
           Paper: {
             screens: {
-              PaperScreen: "two",
+              MyPapersScreen: "MyPapers",
             },
           },
         },

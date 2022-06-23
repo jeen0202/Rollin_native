@@ -19,7 +19,7 @@ export const AuthAxios = async (url: any, method: any, data: any) => {
     url,
     data,
     headers: {
-      Authorization: `Bearer ${AsyncStorage.getItem("loginUser")}`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MDMyMTE4fQ.edillZ8YQthpAePKlm9-q7zZws0fD19dsK337RFS81s`,
     },
   });
 };

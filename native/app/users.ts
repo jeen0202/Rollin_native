@@ -39,7 +39,7 @@ const userSlice = createSlice({
       // console.log(action.payload);
     },
     getUserById: (state: userState, action: PayloadAction<any>) => {
-      state.me = action.payload.data;
+      state.me = action.payload;
     },
     fistload: (state: userState, action: PayloadAction) => {
       state.check = 0;

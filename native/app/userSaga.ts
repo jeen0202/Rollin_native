@@ -56,13 +56,12 @@ function* LoginCheck(data: any) {
 }
 function* handleCheckLogin() {
   try {
-    const myToken = AsyncStorage.getItem("loginUser");
     const response: AxiosResponse<any, any> = yield call(AuthAxios, "/user/me", "get", undefined);
-    console.log(response.data);
-    yield put(getUserById(response));
+    //console.log("response", response.data);
+    yield put(getUserById(response.data));
     yield put(login(true));
   } catch (error) {
-    //console.error(error);
+    console.error(error);
     yield put(login(false));
   }
 }

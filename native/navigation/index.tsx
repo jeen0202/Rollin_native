@@ -15,12 +15,13 @@ import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-import PaperScreen from "../screens/PaperScreen";
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import UsersScreen from "../screens/UsersScreen";
-import PaperAddScreen from "../screens/PaperAddScreen";
-import PaperDetailScreen from "../screens/PaperDetailScreen";
+import UsersScreen from "../screens/Papers/UsersScreen";
+import PaperAddScreen from "../screens/Papers/PaperAddScreen";
+import PaperDetailScreen from "../screens/Papers/PaperDetailScreen";
+import MyPapersScreen from "../screens/Papers/MyPaperScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -37,6 +38,8 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  //강제 로그인
+  AsyncStorage.setItem("loginUser", "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MDMyMTE4fQ.edillZ8YQthpAePKlm9-q7zZws0fD19dsK337RFS81s");
   return (
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
@@ -45,6 +48,7 @@ function RootNavigator() {
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
       <Stack.Group>
+        <Stack.Screen name="MyPapers" component={MyPapersScreen} />
         <Stack.Screen name="PaperAdd" component={PaperAddScreen} />
         <Stack.Screen name="PaperDetail" component={PaperDetailScreen} />
       </Stack.Group>
