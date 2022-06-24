@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Text, View } from "../components/Themed";
-import EditScreenInfo from "../components/EditScreenInfo";
-import { user } from "../types";
+import { Text, View } from "../../components/Themed";
+import EditScreenInfo from "../../components/EditScreenInfo";
+import { user } from "../../types";
 
 export default function PaperDetailScreen({ route, navigation }: any) {
   return (

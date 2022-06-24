@@ -1,5 +1,6 @@
+import { RootState } from "./store";
 import { call, put, select, takeLatest } from "redux-saga/effects";
-import { selectPaper, getPapers, getPapersFail, load, load2, requestGetGift, getGiftByIdFails, getGiftFromId } from "./paper";
+import { selectPaper, getPapers, getPapersFail, loadPapers, load2, requestGetGift, getGiftByIdFails, getGiftFromId } from "./paper";
 import { defaultAxios } from "./AxiosApi";
 import { AxiosResponse } from "axios";
 
@@ -26,10 +27,8 @@ function* handleGetAllPaper() {
 function* handleGetPaperById() {
   try {
     console.log("handle start");
-    const id: number = yield select((state) => state.user.me.id);
-
-    const paper: AxiosResponse<any, any> = yield call(defaultAxios, `/paper/${id}`, "get", null);
-    console.log(paper);
+    const id: number = yield select((state: RootState) => state.user.me?.id);
+    const paper: AxiosResponse<any, any> = yield call(defaultAxios, `/paper/${id}`, "get", undefined);
     yield put(getPapers(paper.data));
   } catch (error: any) {
     console.error(error);
@@ -52,6 +51,6 @@ function* handleGetGiftFromId(data: any) {
 }
 export function* watchGetPaper() {
   yield takeLatest(load2, postPaper);
-  yield takeLatest(load, handleGetPaperById);
+  yield takeLatest(loadPapers, handleGetPaperById);
   yield takeLatest(requestGetGift, handleGetGiftFromId);
 }

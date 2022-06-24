@@ -22,6 +22,7 @@ public class PaperController {
 
     @GetMapping("/{userId}")
     public List<PaperEntity> getPaperByUserId(@PathVariable String userId) {
+        System.out.println(userId);
         return paperService.getPaperByUserId(Integer.valueOf(userId));
     }
     @PostMapping
