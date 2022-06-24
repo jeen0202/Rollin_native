@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Platform, ScrollView, StyleSheet, TextInput } from "react-native";
+import { Button, Platform, ScrollView, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { Text, View } from "../../components/Themed";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { paper, user } from "../../types";
@@ -44,9 +44,9 @@ export default function PaperAddScreen({ route, navigation }: any) {
           onChangeText={(content) => onChangeHandler("content", content)}
         ></TextInput>
       </ScrollView>
-      <View>
-        <Button title="작성 완료" onPress={() => submitPaper()}></Button>
-      </View>
+      <TouchableOpacity onPress={() => submitPaper()}>
+        <CookieText style={{ fontSize: 20, textAlign: "center" }}>작성 완료</CookieText>
+      </TouchableOpacity>
 
       {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
       {/* <EditScreenInfo path="/screens/PaperScreen.tsx" /> */}

@@ -2,7 +2,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { getPapersFail } from "./paper";
 import { defaultAxios, AuthAxios } from "./AxiosApi";
-import { getUsers, getUserById, login, load3, load4, load5, tryLogin, checkLogin } from "./users";
+import { getUsers, getUserById, login, joinIdCheck, setCheck, tryLogin, checkLogin, addUser } from "./users";
 import { AxiosResponse } from "axios";
 
 function* getUser() {
@@ -28,10 +28,13 @@ function* postUser(data: any) {
 
 function* idCheck(data: any) {
   try {
-    console.log("data.payload", data.payload);
+    //console.log("data.payload", data.payload);
     const responser: AxiosResponse<any, any> = yield call(defaultAxios, "/user/Id", "post", data.payload);
-    yield put(load5(responser.data));
+    // console.log(responser.data);
+    yield put(setCheck(responser.data));
     // yield put(load4(responser.data));
+    // return responser.data;
+    // return responser.data;
   } catch (error: any) {
     // alert("아이디가 중복입니다");
     yield put(getPapersFail(error));
@@ -70,7 +73,7 @@ function* handleCheckLogin() {
 export function* watchGetUser() {
   yield takeLatest(tryLogin, LoginCheck);
   yield takeLatest(login, getUser);
-  yield takeLatest(load3, postUser);
-  yield takeLatest(load4, idCheck);
+  yield takeLatest(addUser, postUser);
+  yield takeLatest(joinIdCheck, idCheck);
   yield takeLatest(checkLogin, handleCheckLogin);
 }

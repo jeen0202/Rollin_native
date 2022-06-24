@@ -1,11 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, StyleSheet, TextInput } from "react-native";
+import { Button, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { View, Text } from "../../components/Themed";
 import { login, tryLogin } from "../../app/users";
 import axios from "axios";
 import { user } from "../../types";
 import { InputStyles } from "./../../types";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { CookieText } from "../../components/StyledText";
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const [newUser, setNewUser] = useState<user>();
@@ -28,22 +30,28 @@ const LoginScreen = () => {
   };
 
   return (
-    <View>
-      <TextInput style={InputStyles.inputStyle} placeholder="이곳은 아이디" onChangeText={(text) => onChangeHandler("userId", text)}></TextInput>
+    <SafeAreaView style={styles.container}>
+      <TextInput style={{ ...InputStyles.inputStyle }} placeholder="아이디를 입력하세요" onChangeText={(text) => onChangeHandler("userId", text)}></TextInput>
       <TextInput
         style={InputStyles.inputStyle}
-        placeholder="이곳은 비밀번호"
+        placeholder="비밀번호를 입력하세요"
         secureTextEntry={true}
         onChangeText={(text) => onChangeHandler("password", text)}
       ></TextInput>
-      <Button title="로그인" onPress={onButtonClick}></Button>
-    </View>
+      <TouchableOpacity onPress={onButtonClick}>
+        <CookieText style={{ fontSize: 20, marginTop: 20 }}>로그인</CookieText>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    width: 200,
+  container: {
+    paddingTop: 30,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "beige",
   },
 });
 

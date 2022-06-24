@@ -5,19 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import RNPickerSelect from "react-native-picker-select";
 import { Text, View } from "../components/Themed";
 import { IMG_PATH } from "../app/AxiosApi";
-import {
-  getGift,
-  getReceivers,
-  requestGetGiftName,
-  requestSort,
-  updateView,
-} from "../app/gifts";
+import { getGift, getReceivers, requestGetGiftName, requestSort, updateView } from "../app/gifts";
 import { RootState } from "../app/store";
 
 const GiftScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
   const allGifts = useSelector((state: RootState) => state.gifts.allGifts);
   // const myId = localStorage.getItem("loginUser");
+  const myId = useSelector((state: RootState) => state.user.me!.id);
 
   const [searchKey, setSearchKey] = React.useState("");
   const [sortKey, setSortKey] = React.useState("default");
@@ -39,7 +34,7 @@ const GiftScreen = ({ navigation }: any) => {
     dispatch(updateView(Number.parseInt(id)));
 
     // 로그인한 아이디값 필요
-    dispatch(getReceivers(1));
+    dispatch(getReceivers(myId));
 
     navigation.navigate("GiftDetail");
   };
@@ -49,11 +44,7 @@ const GiftScreen = ({ navigation }: any) => {
       <View style={{ margin: 30, flex: 0.5 }}>
         {/* <Link to={{ screen: "GiftDetail", params: item }}> */}
         <TouchableOpacity onPress={() => goDetail(item.id)}>
-          <Image
-            source={{ uri: `${IMG_PATH}${item.img}` }}
-            style={{ width: 140, height: 100, borderRadius: 10 }}
-            key={item.id}
-          ></Image>
+          <Image source={{ uri: `${IMG_PATH}${item.img}` }} style={{ width: 140, height: 100, borderRadius: 10 }} key={item.id}></Image>
           <Text ellipsizeMode="tail" style={{ textAlign: "center" }}>
             {item.name}
           </Text>
@@ -67,10 +58,7 @@ const GiftScreen = ({ navigation }: any) => {
     <View style={styles.container}>
       <View style={styles.container}>
         <View>
-          <TextInput
-            placeholder="Search..."
-            onChangeText={(newText) => setSearchKey(newText)}
-          ></TextInput>
+          <TextInput placeholder="Search..." onChangeText={(newText) => setSearchKey(newText)}></TextInput>
           <Button title="검색" onPress={onSubmitSearch} color="blue"></Button>
         </View>
         <View>
@@ -87,12 +75,7 @@ const GiftScreen = ({ navigation }: any) => {
           ></RNPickerSelect>
         </View>
         <View style={{ flex: 1, flexWrap: "nowrap", flexDirection: "row" }}>
-          <FlatList
-            data={allGifts}
-            renderItem={(item) => renderGifts(item)}
-            numColumns={2}
-            disableVirtualization
-          ></FlatList>
+          <FlatList data={allGifts} renderItem={(item) => renderGifts(item)} numColumns={2} disableVirtualization></FlatList>
         </View>
       </View>
     </View>

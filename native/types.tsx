@@ -44,6 +44,7 @@ export type RootTabParamList = {
   Users: undefined;
   Login: undefined;
   Gift: undefined;
+  Join: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
@@ -123,6 +124,7 @@ export const listStyles = StyleSheet.create({
 export const InputStyles = StyleSheet.create({
   inputStyle: {
     fontSize: 20,
+    margin: 10,
     ...Platform.select({
       ios: {
         fontFamily: "cookieRun",

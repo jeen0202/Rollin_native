@@ -17,8 +17,8 @@ export default function UsersScreen() {
   const users = useSelector((state: RootState) => state.user.users);
   useEffect(() => {
     // dispatch(login(true));
-    dispatch(checkLogin());
-  }, []);
+    if (isFocused) dispatch(checkLogin());
+  }, [isFocused]);
   return (
     <SafeAreaView style={styles.container}>
       <CookieText style={styles.title}>사용자 목록</CookieText>

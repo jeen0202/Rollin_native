@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -29,6 +29,7 @@ import CommentScreen from "../screens/comment/CommentScreen";
 import BoardAddScreen from "../screens/BoardAddScreen";
 import GiftDetailScreen from "../screens/GiftDetailScreen";
 import GiftScreen from "../screens/GiftScreen";
+import JoinScreen from "../screens/login/JoinScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
@@ -75,9 +76,32 @@ function RootNavigator() {
 const LoginTab = createBottomTabNavigator<RootTabParamList>();
 
 function LoginNavigator() {
+  const colorScheme = useColorScheme();
   return (
-    <LoginTab.Navigator initialRouteName="Login">
-      <LoginTab.Screen name="Login" component={LoginScreen}></LoginTab.Screen>
+    <LoginTab.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarStyle: { backgroundColor: "beige" },
+      }}
+    >
+      <LoginTab.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: "로그인",
+          tabBarIcon: ({ color }) => <Ionicons name="person" size={25} color={color} />,
+        }}
+      ></LoginTab.Screen>
+      <LoginTab.Screen
+        name="Join"
+        component={JoinScreen}
+        options={{
+          title: "회원가입",
+          tabBarIcon: ({ color }) => <Ionicons name="person-add" size={25} color={color} />,
+        }}
+      ></LoginTab.Screen>
     </LoginTab.Navigator>
   );
 }
