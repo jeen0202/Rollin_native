@@ -49,7 +49,7 @@ function* handleSelectAllBoards() {
 }
 
 export function* watchGetBoards() {
-  console.log("saga / watchGetGifts");
+  console.log("saga / watchGetBoards");
   yield takeLatest(INSERT_REQUEST, handleInsertBoards);
   yield takeLatest(BOARDS_REQUEST, handleSelectAllBoards);
 }

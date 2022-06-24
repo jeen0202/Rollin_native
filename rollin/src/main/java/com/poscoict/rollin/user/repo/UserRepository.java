@@ -3,7 +3,9 @@ package com.poscoict.rollin.user.repo;
 import com.poscoict.rollin.gift.model.GiftEntity;
 import com.poscoict.rollin.paper.model.PaperEntity;
 import com.poscoict.rollin.user.model.UserEntity;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +17,7 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
     public Optional<UserEntity> findByUserIdAndPassword(String userId, String password);
 
     public List<UserEntity> findByUserId(String userId);
+
+    @Query(value="SELECT * FROM users u where u.id <> :id", nativeQuery = true)
+    public List<UserEntity> findAllByNotId(@Param("id") Integer id);
 }

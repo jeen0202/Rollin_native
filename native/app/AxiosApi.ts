@@ -27,12 +27,13 @@ export const AuthAxios = async (url: any, method: any, data: any) => {
 };
 export const fileAxios = async (url: any, method: any, data: any) => {
   console.log(`url : ${url}`);
+  const token = await AsyncStorage.getItem("loginUser");
   const response = await axios({
     url,
     method,
     data,
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MTM2MjM5fQ.dbPPdeNGV9-0Wwl0IOa7HnJnJCYHyf5fTct3K1Oes_Y`,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
     },
   });

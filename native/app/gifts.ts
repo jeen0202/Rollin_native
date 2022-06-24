@@ -77,7 +77,7 @@ export const giftsSlice = createSlice({
   initialState,
   reducers: {
     selectAllGifts: (state: giftState, action: PayloadAction<any>) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.allGifts = action.payload;
     },
     requestGetGiftName: (state: giftState, action: PayloadAction<string>) => {
@@ -89,79 +89,44 @@ export const giftsSlice = createSlice({
     updateView: (state: giftState, action: PayloadAction<any>) => {
       console.log("view+1");
     },
-    load2: (state: giftState, action: PayloadAction<number>) => {
+    getGift: (state: giftState, action: PayloadAction<number>) => {
+      console.log("gifts.js 안의 getGift, action.payload:", action.payload);
       state.giftId = action.payload;
     },
-    load3: (state: giftState, action: PayloadAction<string>) => {},
     selectGiftByKey: (state: giftState, action: PayloadAction<any>) => {
-      console.log("gifts.js 안의 selectGfitByKey, action.payload:", action.payload);
+      console.log("gifts.js 안의 selectGfitByKey, action.payload.data:", action.payload.data);
       state.detailGift.gift = action.payload.data;
     },
-    // selectReceivers: (state: giftState, action: PayloadAction<any>) => {
-    //   console.log(action.payload);
-    //   state.receiversInfo.receivers = action.payload.data;
-    // },
+    getReceivers: (state: giftState, action: PayloadAction<number>) => {},
+    selectReceivers: (state: giftState, action: PayloadAction<any>) => {
+      // console.log(
+      //   "selectReceivers 안의 action.payload.data:",
+      //   action.payload.data
+      // );
+      state.receiversInfo.receivers = action.payload.data;
+    },
     insertGift: (state: giftState, action: PayloadAction<any>) => {
-      console.log("insertGift, action.payload: ", action.payload);
+      console.log("gifts.ts의 insertGift");
+      // console.log("insertGift, action.payload: ", action.payload);
     },
     insertGiftFail: (state: giftState, action: PayloadAction<Error>) => {
       state.error = action.payload;
       console.log("InsertGift Fail");
     },
-    postEmail: (state: any, action: PayloadAction<any>) => {
+    postEmail: (state, action) => {
       console.log("postEmail, acation.payload: ", action.payload);
     },
-    postEmailFail: (state: any, action: PayloadAction<Error>) => {
+    postEmailFail: (state, action) => {
       state.error = action.payload;
       console.log("postEmail Fail");
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(selectGiftByKey.fulfilled, (state, { payload }) => {
-  //       const newDetailGift = { ...state.detailGift };
-  //       if (payload) {
-  //         newDetailGift.gift = payload;
-  //         return { ...state, detailGift: newDetailGift };
-  //       } else {
-  //         newDetailGift.message = "상품이 없습니다.";
-  //         return { ...state, detailGift: newDetailGift };
-  //       }
-  //     })
-  //     .addCase(selectGiftByKey.rejected, (state, { error }) => {
-  //       const newDetailGift = { ...state.detailGift };
-  //       newDetailGift.message = error.message;
-  //       return { ...state, detailGift: newDetailGift };
-  //     })
-  //     .addCase(selectReceivers.fulfilled, (state, { payload }) => {
-  //       const newReceiversInfo = { ...state.receiversInfo };
-  //       if (payload) {
-  //         newReceiversInfo.receivers = payload;
-  //         return { ...state, receiversInfo: newReceiversInfo };
-  //       } else {
-  //         newReceiversInfo.message = "받을 수 있는 사람이 없습니다";
-  //         return { ...state, receiversInfo: newReceiversInfo };
-  //       }
-  //     })
-  //     .addCase(selectReceivers.rejected, (state, { error }) => {
-  //       const newReceiversInfo = { ...state.receiversInfo };
-  //       newReceiversInfo.message = error.message;
-  //       return { ...state, receiversInfo: newReceiversInfo };
-  //     })
-  //     .addCase(insertGift.fulfilled, (state, { payload }) => {
-  //       console.log("insert Gift 성공");
-  //       return { ...state };
-  //     })
-  //     .addCase(insertGift.rejected, (state, { error }) => {
-  //       return { ...state };
-  //     });
-  // },
 });
 
 export const {
   selectAllGifts,
-  load2,
-  load3,
+  getGift,
+  getReceivers,
   selectGiftByKey,
   insertGift,
   insertGiftFail,
@@ -170,6 +135,7 @@ export const {
   postEmail,
   postEmailFail,
   updateView,
+  selectReceivers,
 } = giftsSlice.actions;
 
 export default giftsSlice.reducer;

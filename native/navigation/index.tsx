@@ -27,6 +27,8 @@ import { RootState } from "../app/store";
 import LoginScreen from "../screens/login/LoginScreen";
 import CommentScreen from "../screens/comment/CommentScreen";
 import BoardAddScreen from "../screens/BoardAddScreen";
+import GiftDetailScreen from "../screens/GiftDetailScreen";
+import GiftScreen from "../screens/GiftScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
@@ -61,6 +63,10 @@ function RootNavigator() {
       <Stack.Group>
         <Stack.Screen name="BoardAdd" component={BoardAddScreen} options={{ title: "게시판 등록" }} />
         <Stack.Screen name="Comment" component={CommentScreen} options={{ title: "이글의 댓글" }} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name="Gift" component={GiftScreen} />
+        <Stack.Screen name="GiftDetail" component={GiftDetailScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -118,6 +124,14 @@ function BottomTabNavigator() {
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="edit" color={color} />,
         }}
+      />
+      <BottomTab.Screen
+        name="Gift"
+        component={GiftScreen}
+        options={({ navigation }: RootTabScreenProps<"Gift">) => ({
+          title: "선물하기",
+          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        })}
       />
     </BottomTab.Navigator>
   );

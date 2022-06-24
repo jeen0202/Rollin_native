@@ -4,6 +4,8 @@ import com.poscoict.rollin.gift.model.GiftEntity;
 import com.poscoict.rollin.gift.repository.GiftRepository;
 import com.poscoict.rollin.paper.model.PaperEntity;
 import com.poscoict.rollin.paper.repo.PaperRepository;
+import com.poscoict.rollin.user.model.UserEntity;
+import com.poscoict.rollin.user.repo.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -22,6 +24,9 @@ public class GiftServiceImpl implements GiftService {
 
     @Autowired
     PaperRepository paperRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public List<GiftEntity> findAllGift() {
@@ -69,5 +74,6 @@ public class GiftServiceImpl implements GiftService {
             return false;
         }
     }
+
 
 }

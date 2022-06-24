@@ -10,39 +10,39 @@ import BoardScreen from "./BoardScreen";
 import { StyleSheet } from "react-native";
 
 const TabOneScreen = ({}) => {
-    // <Button title="+" onPress={() => {linkto("/Users")}}></Button>
-    return (
-        <View style={styles.container}>
-            <View
-                style={{
-                    backgroundColor: "#CCCCFF",
-                    alignItems: "center",
-                }}
-            >
-                <Link to={{ screen: "BoardAdd" }}>
-                    <Text
-                        style={{
-                            backgroundColor: "#CCCCFF",
-                            color: "black",
-                            fontSize: 30,
-                        }}
-                    >
-                        글 작성하러 가기
-                    </Text>
-                </Link>
-            </View>
-            <View style={styles.container}>
-                {/* <BoardScreen board={Boards}></BoardScreen> */}
-                <BoardScreen></BoardScreen>
-            </View>
-        </View>
-    );
+  // <Button title="+" onPress={() => {linkto("/Users")}}></Button>
+  return (
+    <View style={styles.container}>
+      <View
+        style={{
+          backgroundColor: "#CCCCFF",
+          alignItems: "center",
+        }}
+      >
+        <Link to={{ screen: "BoardAdd" }}>
+          <Text
+            style={{
+              backgroundColor: "#CCCCFF",
+              color: "black",
+              fontSize: 30,
+            }}
+          >
+            글 작성하러 가기
+          </Text>
+        </Link>
+      </View>
+      <View style={styles.container}>
+        {/* <BoardScreen board={Boards}></BoardScreen> */}
+        <BoardScreen></BoardScreen>
+      </View>
+    </View>
+  );
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignContent: "center",
-        backgroundColor: "beige",
-    },
+  container: {
+    flex: 1,
+    alignContent: "center",
+    backgroundColor: "beige",
+  },
 });
 export default TabOneScreen;

@@ -22,7 +22,14 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
           Paper: {
             screens: {
+              PaperScreen: "paper",
               MyPapersScreen: "MyPapers",
+            },
+          },
+          Gift: {
+            screens: {
+              GiftScreen: "gift",
+              GiftDetail: "giftDetail",
             },
           },
         },

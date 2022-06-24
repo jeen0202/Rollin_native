@@ -26,6 +26,8 @@ export type RootStackParamList = {
   PaperDetail: { id: number; name: string };
   BoardAdd: undefined;
   Comment: undefined;
+  Gift: undefined;
+  GiftDetail: undefined;
 };
 
 export type PaperStackParamList = {
@@ -41,6 +43,7 @@ export type RootTabParamList = {
   Paper: undefined;
   Users: undefined;
   Login: undefined;
+  Gift: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

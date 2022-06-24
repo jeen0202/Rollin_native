@@ -3,6 +3,7 @@ package com.poscoict.rollin.gift.serive;
 
 import com.poscoict.rollin.gift.model.GiftEntity;
 import com.poscoict.rollin.paper.model.PaperEntity;
+import com.poscoict.rollin.user.model.UserEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,6 @@ public interface GiftService {
     Optional<GiftEntity> getGiftById(Integer id);
 
     Boolean insertGiftInPaperAndUpdateGiftCount(PaperEntity paperEntity);
-
 
 
 }
