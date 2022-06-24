@@ -47,7 +47,7 @@ const GiftDetailScreen = ({ navigation }: any) => {
   const onSubmit = () => {
     // console.log("onSubmit, form:", form);
     const newForm = { ...form, giftId: gift.id };
-    console.log("-----newForm-----\n", newForm);
+    // console.log("-----newForm-----\n", newForm);
     dispatch(insertGift(newForm));
     dispatch(
       postEmail({
