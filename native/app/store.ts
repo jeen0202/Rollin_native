@@ -10,29 +10,30 @@ import { all } from "redux-saga/effects";
 import { watchGetUser } from "./userSaga";
 import { watchGetAPI } from "./AuthSaga";
 import apiReducer from "./Auths";
+import { watchGetComment } from "./commentSaga";
 
 const reducer = combineReducers({
-  user: userReducer,
-  // page: pageReducer,
-  paper: paperReducer,
-  api: apiReducer,
-  gifts,
+    user: userReducer,
+    // page: pageReducer,
+    paper: paperReducer,
+    api: apiReducer,
+    gifts,
 });
 const sagaMiddleware = createSagaMiddleware();
 const defaultMiddleware = getDefaultMiddleware();
 function* rootSaga() {
-  yield all([watchGetPaper(), watchGetGifts(), watchGetUser(), watchGetAPI()]);
+    yield all([watchGetPaper(), watchGetGifts(), watchGetUser(), watchGetAPI(), watchGetComment()]);
 }
 const createStore = () => {
-  const store = configureStore({
-    reducer,
-    devTools: true,
-    middleware: [...defaultMiddleware, sagaMiddleware],
-  });
+    const store = configureStore({
+        reducer,
+        devTools: true,
+        middleware: [...defaultMiddleware, sagaMiddleware],
+    });
 
-  sagaMiddleware.run(rootSaga);
+    sagaMiddleware.run(rootSaga);
 
-  return store;
+    return store;
 };
 export default createStore;
 export type RootState = ReturnType<typeof reducer>;
