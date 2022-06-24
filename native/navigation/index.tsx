@@ -9,6 +9,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
+import login from '../components/login/login';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -64,14 +65,14 @@ function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="TabOne"
-        component={TabOneScreen}
+        component={login}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
+              style={({ pressed }) => ({    
                 opacity: pressed ? 0.5 : 1,
               })}>
               <FontAwesome
@@ -83,14 +84,6 @@ function BottomTabNavigator() {
             </Pressable>
           ),
         })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
       />
     </BottomTab.Navigator>
   );

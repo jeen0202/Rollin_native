@@ -38,3 +38,4 @@ native/npm-debug.*
 *.key
 *.mobileprovision
 *.orig.*
+node_modules
