@@ -21,6 +21,7 @@ import LinkingConfiguration from "./LinkingConfiguration";
 import UsersScreen from "../screens/UsersScreen";
 import PaperAddScreen from "../screens/PaperAddScreen";
 import PaperDetailScreen from "../screens/PaperDetailScreen";
+import BoardAddScreen from "../screens/BoardAddScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -47,6 +48,9 @@ function RootNavigator() {
       <Stack.Group>
         <Stack.Screen name="PaperAdd" component={PaperAddScreen} />
         <Stack.Screen name="PaperDetail" component={PaperDetailScreen} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name="BoardAdd" component={BoardAddScreen} options={{ title: "게시판 등록" }}/>
       </Stack.Group>
     </Stack.Navigator>
   );

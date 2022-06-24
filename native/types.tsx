@@ -22,6 +22,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   PaperAdd: undefined;
   PaperDetail: { id: number; name: string };
+  BoardAdd:undefined;
 };
 
 export type PaperStackParamList = {

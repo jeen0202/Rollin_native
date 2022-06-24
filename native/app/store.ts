@@ -10,6 +10,8 @@ import { all } from "redux-saga/effects";
 import { watchGetUser } from "./userSaga";
 import { watchGetAPI } from "./AuthSaga";
 import apiReducer from "./Auths";
+import boards from "./board";
+import { watchGetBoards } from "./boardSaga";
 
 const reducer = combineReducers({
   user: userReducer,
@@ -17,11 +19,12 @@ const reducer = combineReducers({
   paper: paperReducer,
   api: apiReducer,
   gifts,
+  boards,
 });
 const sagaMiddleware = createSagaMiddleware();
 const defaultMiddleware = getDefaultMiddleware();
 function* rootSaga() {
-  yield all([watchGetPaper(), watchGetGifts(), watchGetUser(), watchGetAPI()]);
+  yield all([watchGetPaper(), watchGetGifts(), watchGetUser(), watchGetAPI(),watchGetBoards()]);
 }
 const createStore = () => {
   const store = configureStore({
