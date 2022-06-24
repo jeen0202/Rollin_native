@@ -1,12 +1,6 @@
 import { all, call, fork, put, take, takeLatest } from "redux-saga/effects";
-import {
-  SELECT_ALL_BOARDS,
-  BOARDS_REQUEST,
-  FAILED_REQUEST,
-  INSERT_BOARD,
-  INSERT_REQUEST,
-} from "./board";
-import { AuthAxios, fileAxios } from "./AxiosApi";
+import { SELECT_ALL_BOARDS, BOARDS_REQUEST, FAILED_REQUEST, INSERT_BOARD, INSERT_REQUEST } from "./board";
+import { AuthAxios, defaultAxios, fileAxios } from "./AxiosApi";
 
 function* handleInsertBoards(action) {
   try {
@@ -40,11 +34,11 @@ function* handleInsertBoards(action) {
 function* handleSelectAllBoards() {
   try {
     console.log("handleSelectAllBoards start");
-    const allBoards = yield call(AuthAxios, "/board/", "get");
-    console.log(allBoards);
+    const allBoards = yield call(defaultAxios, "/board/", "get");
+    // console.log(allBoards.data);
     yield put({
       type: SELECT_ALL_BOARDS,
-      payload: allBoards,
+      payload: allBoards.data,
     }); //put은 특정 액션을 dispatch한다
   } catch (error) {
     yield put({

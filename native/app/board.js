@@ -48,10 +48,10 @@ const boards = (state = initialState, action) => {
     }
     case SELECT_ALL_BOARDS: {
       console.log("reducer / 사진 가져오기 완료");
-      console.log("reducer / ", action.payload.data);
+      // console.log("reducer / ", action.payload);
       return {
         ...state,
-        allBoards: action.payload.data,
+        allBoards: action.payload,
         boardsLoading: false,
         boardsDone: true,
       };

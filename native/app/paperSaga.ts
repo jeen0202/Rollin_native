@@ -1,14 +1,15 @@
 import { RootState } from "./store";
 import { call, put, select, takeLatest } from "redux-saga/effects";
-import { selectPaper, getPapers, getPapersFail, loadPapers, load2, requestGetGift, getGiftByIdFails, getGiftFromId } from "./paper";
+import { selectPaper, getPapers, getPapersFail, loadPapers, addPaper, requestGetGift, getGiftByIdFails, getGiftFromId } from "./paper";
 import { defaultAxios } from "./AxiosApi";
 import { AxiosResponse } from "axios";
 
 function* postPaper(data: any) {
   try {
-    console.log(data);
-    console.log(data.payload);
-    yield call(defaultAxios, "/paper", "post", data.payload);
+    // console.log(data);
+    // console.log(data.payload);
+    const response: AxiosResponse<any, any> = yield call(defaultAxios, "/paper", "post", data.payload);
+    return response.data;
   } catch (error: any) {
     yield put(getPapersFail(error));
     console.error(error);
@@ -50,7 +51,7 @@ function* handleGetGiftFromId(data: any) {
   }
 }
 export function* watchGetPaper() {
-  yield takeLatest(load2, postPaper);
+  yield takeLatest(addPaper, postPaper);
   yield takeLatest(loadPapers, handleGetPaperById);
   yield takeLatest(requestGetGift, handleGetGiftFromId);
 }

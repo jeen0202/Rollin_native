@@ -24,7 +24,8 @@ export type RootStackParamList = {
   MyPapers: { id: number; name: string };
   PaperAdd: undefined;
   PaperDetail: { id: number; name: string };
-  BoardAdd:undefined;
+  BoardAdd: undefined;
+  Comment: undefined;
 };
 
 export type PaperStackParamList = {
@@ -113,5 +114,5 @@ export type PaperListProps = {
 
 //styles
 export const listStyles = StyleSheet.create({
-  item: { justifyContent: "center", alignItems: "center" },
+  item: { justifyContent: "center", alignItems: "center", backgroundColor: "beige" },
 });
