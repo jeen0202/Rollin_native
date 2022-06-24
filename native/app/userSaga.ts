@@ -41,9 +41,9 @@ function* idCheck(data: any) {
 
 function* LoginCheck(data: any) {
   try {
-    console.log('data.payload', data.payload);
+    //console.log("data.payload", data.payload);
     const response: AxiosResponse<any, any> = yield call(defaultAxios, "/user/Login", "post", data.payload);
-    console.log(response.data)
+    console.log(response.data);
     // console.log("로그인 시도 데이터 : " ,data.payload);
     yield put(getUserById(response.data.id));
     yield put(login(true));

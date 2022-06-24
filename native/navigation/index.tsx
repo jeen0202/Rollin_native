@@ -24,13 +24,15 @@ import MyPapersScreen from "../screens/Papers/MyPaperScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
-import LoginScreen from "../screens/login/LoginScreen"
+import LoginScreen from "../screens/login/LoginScreen";
+import CommentScreen from "../screens/comment/CommentScreen";
+import BoardAddScreen from "../screens/BoardAddScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
-  const isLogin = useSelector((state:RootState)=>state.user.isLogin)
+  const isLogin = useSelector((state: RootState) => state.user.isLogin);
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      {isLogin?<RootNavigator />:<LoginNavigator/>}
+      {isLogin ? <RootNavigator /> : <LoginNavigator />}
     </NavigationContainer>
   );
 }
@@ -43,9 +45,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   //강제 로그인
-  AsyncStorage.setItem("loginUser", "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MDMyMTE4fQ.edillZ8YQthpAePKlm9-q7zZws0fD19dsK337RFS81s");
+  //AsyncStorage.setItem("loginUser", "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MTM2MjM5fQ.dbPPdeNGV9-0Wwl0IOa7HnJnJCYHyf5fTct3K1Oes_Y");
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: "beige" }, headerShadowVisible: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
@@ -56,20 +58,22 @@ function RootNavigator() {
         <Stack.Screen name="PaperAdd" component={PaperAddScreen} />
         <Stack.Screen name="PaperDetail" component={PaperDetailScreen} />
       </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen name="BoardAdd" component={BoardAddScreen} options={{ title: "게시판 등록" }} />
+        <Stack.Screen name="Comment" component={CommentScreen} options={{ title: "이글의 댓글" }} />
+      </Stack.Group>
     </Stack.Navigator>
   );
 }
 
-
 const LoginTab = createBottomTabNavigator<RootTabParamList>();
 
-function LoginNavigator(){
+function LoginNavigator() {
   return (
-    <LoginTab.Navigator
-    initialRouteName= "Login">
+    <LoginTab.Navigator initialRouteName="Login">
       <LoginTab.Screen name="Login" component={LoginScreen}></LoginTab.Screen>
     </LoginTab.Navigator>
-  )
+  );
 }
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
@@ -85,6 +89,7 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarStyle: { backgroundColor: "beige" },
       }}
     >
       <BottomTab.Screen
@@ -109,8 +114,9 @@ function BottomTabNavigator() {
         name="Users"
         component={UsersScreen}
         options={{
-          title: "Users",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "쪽지",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="edit" color={color} />,
         }}
       />
     </BottomTab.Navigator>

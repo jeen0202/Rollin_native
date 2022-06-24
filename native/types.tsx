@@ -6,7 +6,7 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 declare global {
   namespace ReactNavigation {
@@ -24,6 +24,8 @@ export type RootStackParamList = {
   MyPapers: { id: number; name: string };
   PaperAdd: undefined;
   PaperDetail: { id: number; name: string };
+  BoardAdd: undefined;
+  Comment: undefined;
 };
 
 export type PaperStackParamList = {
@@ -38,7 +40,7 @@ export type RootTabParamList = {
   TabOne: undefined;
   Paper: undefined;
   Users: undefined;
-  Login : undefined;
+  Login: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
@@ -113,5 +115,20 @@ export type PaperListProps = {
 
 //styles
 export const listStyles = StyleSheet.create({
-  item: { justifyContent: "center", alignItems: "center" },
+  item: { justifyContent: "center", alignItems: "center", backgroundColor: "beige" },
+});
+export const InputStyles = StyleSheet.create({
+  inputStyle: {
+    fontSize: 20,
+    ...Platform.select({
+      ios: {
+        fontFamily: "cookieRun",
+        fontWeight: "600",
+        fontStyle: "normal",
+      },
+      android: {
+        fontFamily: "cookieRun",
+      },
+    }),
+  },
 });

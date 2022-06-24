@@ -23,12 +23,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @Autowired
     SecurityService securityService;
-
-
-
 
     @GetMapping
     public List<UserEntity> getUser() {

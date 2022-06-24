@@ -28,8 +28,8 @@ const userSlice = createSlice({
     load4: (state: userState, action: PayloadAction) => {
       console.log(action.payload);
     },
-    tryLogin: (state: userState, action: PayloadAction<Object>) => {
-      console.log(action.payload);
+    tryLogin: (state: userState, action: PayloadAction<user>) => {
+      //console.log(action.payload);
     },
     load5: (state: userState, action: PayloadAction<number>) => {
       state.check = action.payload;
