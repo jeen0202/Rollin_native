@@ -28,7 +28,7 @@ const userSlice = createSlice({
     load4: (state: userState, action: PayloadAction) => {
       console.log(action.payload);
     },
-    load7: (state: userState, action: PayloadAction<Object>) => {
+    tryLogin: (state: userState, action: PayloadAction<Object>) => {
       console.log(action.payload);
     },
     load5: (state: userState, action: PayloadAction<number>) => {
@@ -56,5 +56,5 @@ const userSlice = createSlice({
   },
   extraReducers: {},
 });
-export const { login, logout, getUsers, load3, load4, load5, getUserById, load7, fistload, checkLogin } = userSlice.actions;
+export const { login, logout, getUsers, load3, load4, load5, getUserById, tryLogin, fistload, checkLogin } = userSlice.actions;
 export default userSlice.reducer;

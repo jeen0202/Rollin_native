@@ -1,8 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { call, put, takeLatest } from "redux-saga/effects";
-import { getPapersFail, load2 } from "./paper";
+import { getPapersFail } from "./paper";
 import { defaultAxios, AuthAxios } from "./AxiosApi";
-import { getUsers, getUserById, login, load3, load4, load5, load7, checkLogin } from "./users";
+import { getUsers, getUserById, login, load3, load4, load5, tryLogin, checkLogin } from "./users";
 import { AxiosResponse } from "axios";
 
 function* getUser() {
@@ -41,8 +41,10 @@ function* idCheck(data: any) {
 
 function* LoginCheck(data: any) {
   try {
-    // console.log('data.payload', data.payload);
+    console.log('data.payload', data.payload);
     const response: AxiosResponse<any, any> = yield call(defaultAxios, "/user/Login", "post", data.payload);
+    console.log(response.data)
+    // console.log("로그인 시도 데이터 : " ,data.payload);
     yield put(getUserById(response.data.id));
     yield put(login(true));
     AsyncStorage.setItem("loginUser", response.data.token);
@@ -66,7 +68,7 @@ function* handleCheckLogin() {
   }
 }
 export function* watchGetUser() {
-  yield takeLatest(load7, LoginCheck);
+  yield takeLatest(tryLogin, LoginCheck);
   yield takeLatest(login, getUser);
   yield takeLatest(load3, postUser);
   yield takeLatest(load4, idCheck);

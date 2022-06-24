@@ -22,11 +22,15 @@ import PaperAddScreen from "../screens/Papers/PaperAddScreen";
 import PaperDetailScreen from "../screens/Papers/PaperDetailScreen";
 import MyPapersScreen from "../screens/Papers/MyPaperScreen";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
+import LoginScreen from "../screens/login/LoginScreen"
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+  const isLogin = useSelector((state:RootState)=>state.user.isLogin)
   return (
     <NavigationContainer linking={LinkingConfiguration} theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <RootNavigator />
+      {isLogin?<RootNavigator />:<LoginNavigator/>}
     </NavigationContainer>
   );
 }
@@ -56,6 +60,17 @@ function RootNavigator() {
   );
 }
 
+
+const LoginTab = createBottomTabNavigator<RootTabParamList>();
+
+function LoginNavigator(){
+  return (
+    <LoginTab.Navigator
+    initialRouteName= "Login">
+      <LoginTab.Screen name="Login" component={LoginScreen}></LoginTab.Screen>
+    </LoginTab.Navigator>
+  )
+}
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
