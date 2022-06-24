@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button, StyleSheet, TextInput } from "react-native";
+import { Button, Platform, ScrollView, StyleSheet, TextInput } from "react-native";
 import { Text, View } from "../../components/Themed";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { paper, user } from "../../types";
 import { useDispatch } from "react-redux";
 import { addPaper } from "../../app/paper";
+import { CookieText } from "../../components/StyledText";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function PaperAddScreen({ route, navigation }: any) {
   const dispatch = useDispatch();
@@ -29,29 +31,56 @@ export default function PaperAddScreen({ route, navigation }: any) {
     }
   }
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{selectedUser?.name}님에게 Rollin보내기</Text>
-      <TextInput>{selectedUser?.id}</TextInput>
-      <TextInput placeholder="사용할 닉네임" onChangeText={(nickname) => onChangeHandler("nickname", nickname)}></TextInput>
-      <TextInput placeholder="작성할 내용" multiline={true} numberOfLines={4} onChangeText={(content) => onChangeHandler("content", content)}></TextInput>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Button title="작성 완료" onPress={() => submitPaper()}></Button>
+    <SafeAreaView style={styles.container}>
+      <CookieText style={styles.title}>{selectedUser?.name}님에게 Rollin보내기</CookieText>
+      {/* <TextInput>{selectedUser?.id}</TextInput> */}
+      <ScrollView style={{ padding: 10 }}>
+        <TextInput style={styles.inputStyle} placeholder="사용할 닉네임" onChangeText={(nickname) => onChangeHandler("nickname", nickname)}></TextInput>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="작성할 내용"
+          multiline={true}
+          numberOfLines={4}
+          onChangeText={(content) => onChangeHandler("content", content)}
+        ></TextInput>
+      </ScrollView>
+      <View>
+        <Button title="작성 완료" onPress={() => submitPaper()}></Button>
+      </View>
+
+      {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
       {/* <EditScreenInfo path="/screens/PaperScreen.tsx" /> */}
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "beige",
+    padding: 10,
   },
   title: {
     fontSize: 30,
     fontWeight: "bold",
+    textAlign: "center",
   },
   separator: {
     marginVertical: 30,
     height: 1,
     width: "80%",
+  },
+  inputStyle: {
+    fontSize: 20,
+    ...Platform.select({
+      ios: {
+        fontFamily: "cookieRun",
+        fontWeight: "600",
+        fontStyle: "normal",
+      },
+      android: {
+        fontFamily: "cookieRun",
+      },
+    }),
   },
 });

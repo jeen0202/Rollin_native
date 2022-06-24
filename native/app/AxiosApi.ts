@@ -19,7 +19,7 @@ export const AuthAxios = async (url: any, method: any, data: any) => {
     url,
     data,
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MDMyMTE4fQ.edillZ8YQthpAePKlm9-q7zZws0fD19dsK337RFS81s`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MTE4NjU5fQ.hbd24FVxeRnzJGdKBiiPqQ5CAUQ3n9h65T6C3eU0HMc`,
     },
   });
 };

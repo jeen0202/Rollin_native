@@ -41,7 +41,7 @@ function RootNavigator() {
   //강제 로그인
   AsyncStorage.setItem("loginUser", "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MDMyMTE4fQ.edillZ8YQthpAePKlm9-q7zZws0fD19dsK337RFS81s");
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: "beige" }, headerShadowVisible: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
@@ -70,6 +70,7 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarStyle: { backgroundColor: "beige" },
       }}
     >
       <BottomTab.Screen
@@ -94,8 +95,9 @@ function BottomTabNavigator() {
         name="Users"
         component={UsersScreen}
         options={{
-          title: "Users",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "쪽지",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="edit" color={color} />,
         }}
       />
     </BottomTab.Navigator>

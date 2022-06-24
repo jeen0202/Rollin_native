@@ -112,5 +112,5 @@ export type PaperListProps = {
 
 //styles
 export const listStyles = StyleSheet.create({
-  item: { justifyContent: "center", alignItems: "center" },
+  item: { justifyContent: "center", alignItems: "center", backgroundColor: "beige" },
 });
