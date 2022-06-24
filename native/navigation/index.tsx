@@ -19,15 +19,21 @@ import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-import GiftScreen from "../screens/GiftScreen";
 import {
   RootStackParamList,
   RootTabParamList,
   RootTabScreenProps,
 } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
+import UsersScreen from "../screens/Papers/UsersScreen";
+import PaperAddScreen from "../screens/Papers/PaperAddScreen";
+import PaperDetailScreen from "../screens/Papers/PaperDetailScreen";
+import MyPapersScreen from "../screens/Papers/MyPaperScreen";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import CommentScreen from "../screens/comment/CommentScreen";
+import BoardAddScreen from "../screens/BoardAddScreen";
 import GiftDetailScreen from "../screens/GiftDetailScreen";
-import PaperScreen from "../screens/PaperScreen";
+import GiftScreen from "../screens/GiftScreen";
 
 export default function Navigation({
   colorScheme,
@@ -51,8 +57,15 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  //강제 로그인
+  //AsyncStorage.setItem("loginUser", "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MTM2MjM5fQ.dbPPdeNGV9-0Wwl0IOa7HnJnJCYHyf5fTct3K1Oes_Y");
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: "beige" },
+        headerShadowVisible: false,
+      }}
+    >
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
@@ -63,11 +76,26 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
-
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
-
+      <Stack.Group>
+        <Stack.Screen name="MyPapers" component={MyPapersScreen} />
+        <Stack.Screen name="PaperAdd" component={PaperAddScreen} />
+        <Stack.Screen name="PaperDetail" component={PaperDetailScreen} />
+      </Stack.Group>
+      <Stack.Group>
+        <Stack.Screen
+          name="BoardAdd"
+          component={BoardAddScreen}
+          options={{ title: "게시판 등록" }}
+        />
+        <Stack.Screen
+          name="Comment"
+          component={CommentScreen}
+          options={{ title: "이글의 댓글" }}
+        />
+      </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="Gift" component={GiftScreen} />
         <Stack.Screen name="GiftDetail" component={GiftDetailScreen} />
@@ -90,6 +118,7 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarStyle: { backgroundColor: "beige" },
       }}
     >
       <BottomTab.Screen
@@ -116,11 +145,12 @@ function BottomTabNavigator() {
         })}
       />
       <BottomTab.Screen
-        name="Paper"
-        component={PaperScreen}
+        name="Users"
+        component={UsersScreen}
         options={{
-          title: "Paper",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "쪽지",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="edit" color={color} />,
         }}
       />
       <BottomTab.Screen

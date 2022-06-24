@@ -1,3 +1,4 @@
+import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
@@ -5,7 +6,7 @@ import { Provider } from "react-redux";
 import useCachedResources from "./hooks/useCachedResources";
 import useColorScheme from "./hooks/useColorScheme";
 import Navigation from "./navigation";
-import createStore from "./store/store";
+import createStore from "./app/store";
 
 export default function App() {
   const store = createStore();

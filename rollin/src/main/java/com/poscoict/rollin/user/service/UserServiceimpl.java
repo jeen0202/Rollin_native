@@ -22,10 +22,10 @@ public class UserServiceimpl implements UserService {
 
     @Override
     public Boolean insertUser(UserEntity userEntity) {
-        UserEntity new_user=userRepository.save(userEntity);
-        if(new_user.getId()!=null){
+        UserEntity new_user = userRepository.save(userEntity);
+        if (new_user.getId() != null) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -51,12 +51,12 @@ public class UserServiceimpl implements UserService {
     }
 
     @Override
-    public Optional<UserEntity> serviceLogin(UserEntity userEntity){
+    public Optional<UserEntity> serviceLogin(UserEntity userEntity) {
         return userRepository.findByUserIdAndPassword(userEntity.getUserId(), userEntity.getPassword());
     }
 
-
-
-
-
+    @Override
+    public List<UserEntity> findReceiversNotUserId(Integer id) {
+        return userRepository.findAllByNotId(id);
+    }
 }

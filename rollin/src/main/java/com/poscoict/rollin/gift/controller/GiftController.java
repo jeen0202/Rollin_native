@@ -3,6 +3,8 @@ package com.poscoict.rollin.gift.controller;
 import com.poscoict.rollin.gift.model.GiftEntity;
 import com.poscoict.rollin.gift.serive.GiftService;
 import com.poscoict.rollin.paper.model.PaperEntity;
+import com.poscoict.rollin.user.model.UserEntity;
+import com.poscoict.rollin.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,9 @@ import java.util.Optional;
 public class GiftController {
     @Autowired
     GiftService giftService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping("")
     public List<GiftEntity> getAllGift(){
@@ -48,6 +53,12 @@ public class GiftController {
         log.info(name);
         return giftService.findGiftByName(name);
     }
+
+    @GetMapping("/receiver/{id}")
+    public List<UserEntity> getReceiversNotUserId(@PathVariable String id){
+        return userService.findReceiversNotUserId(Integer.valueOf(id));
+    }
+
     @PutMapping("/{id}")
     public Optional<GiftEntity> updateGiftView(
             @PathVariable String id

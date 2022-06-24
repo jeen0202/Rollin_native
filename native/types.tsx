@@ -9,6 +9,7 @@ import {
   NavigatorScreenParams,
 } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StyleSheet } from "react-native";
 
 declare global {
   namespace ReactNavigation {
@@ -23,8 +24,11 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
   NotFound: undefined;
+  MyPapers: { id: number; name: string };
   PaperAdd: undefined;
   PaperDetail: { id: number; name: string };
+  BoardAdd: undefined;
+  Comment: undefined;
   Gift: undefined;
   GiftDetail: undefined;
 };
@@ -109,6 +113,18 @@ export type giftState = {
   };
 };
 
-export type listProps = {
+export type UserListProps = {
   listdata?: user[];
 };
+export type PaperListProps = {
+  listData?: paper[];
+};
+
+//styles
+export const listStyles = StyleSheet.create({
+  item: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "beige",
+  },
+});

@@ -1,20 +1,18 @@
-import { Link } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { GestureResponderEvent, TouchableOpacity } from "react-native";
 import { StyleSheet, TextInput, Button, Image, FlatList } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useDispatch, useSelector } from "react-redux";
-
-import EditScreenInfo from "../components/EditScreenInfo";
+import RNPickerSelect from "react-native-picker-select";
 import { Text, View } from "../components/Themed";
-import { IMG_PATH } from "../store/AxiosApi";
+import { IMG_PATH } from "../app/AxiosApi";
 import {
-  load2,
+  getGift,
+  getReceivers,
   requestGetGiftName,
   requestSort,
   updateView,
-} from "../store/gifts";
-import { RootState } from "../store/store";
+} from "../app/gifts";
+import { RootState } from "../app/store";
 
 const GiftScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
@@ -27,24 +25,21 @@ const GiftScreen = ({ navigation }: any) => {
   useEffect(() => {
     dispatch(requestSort({ allGifts: allGifts, sortKey: sortKey }));
     // console.log("allGifts:", allGifts);
-  }, [sortKey, dispatch]);
+  }, [sortKey]);
 
   const onSubmitSearch = () => {
     // console.log("searchKey : ", searchKey);
     dispatch(requestGetGiftName(searchKey));
   };
-  // const onClickImg = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-  //   // dispatch(load2(Number.parseInt(e.currentTarget.id)));
-
-  //   // dispatch(updateView(Number.parseInt(e.currentTarget.id)));
-  //   console.log("detailGift로 이동");
-  // };
 
   const goDetail = (id: any) => {
     console.log(id);
-    dispatch(load2(Number.parseInt(id)));
+    dispatch(getGift(Number.parseInt(id)));
 
     dispatch(updateView(Number.parseInt(id)));
+
+    // 로그인한 아이디값 필요
+    dispatch(getReceivers(1));
 
     navigation.navigate("GiftDetail");
   };
@@ -80,6 +75,16 @@ const GiftScreen = ({ navigation }: any) => {
         </View>
         <View>
           <Text>총상품개수 : {allGifts.length}</Text>
+          <RNPickerSelect
+            onValueChange={(value) => setSortKey(value)}
+            placeholder={{ label: "정렬", value: null }}
+            items={[
+              { label: "구매순", value: "count" },
+              { label: "조회순", value: "view" },
+              { label: "가격높은순", value: "hprice" },
+              { label: "가격낮은순", value: "lprice" },
+            ]}
+          ></RNPickerSelect>
         </View>
         <View style={{ flex: 1, flexWrap: "nowrap", flexDirection: "row" }}>
           <FlatList

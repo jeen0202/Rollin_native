@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 axios.defaults.baseURL = "http://192.168.0.59:8000";
@@ -18,7 +19,8 @@ export const AuthAxios = async (url: any, method: any, data: any) => {
     url,
     data,
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("loginUser")}`,
+      // Authorization: `Bearer ${localStorage.getItem("loginUser")}`,
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MTE4NjU5fQ.hbd24FVxeRnzJGdKBiiPqQ5CAUQ3n9h65T6C3eU0HMc`,
     },
   });
 };
