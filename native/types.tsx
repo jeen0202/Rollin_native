@@ -24,6 +24,7 @@ export type RootStackParamList = {
   MyPapers: { id: number; name: string };
   PaperAdd: undefined;
   PaperDetail: { id: number; name: string };
+  PaperModal: { gift: gift };
   BoardAdd: undefined;
   Comment: undefined;
   Gift: undefined;

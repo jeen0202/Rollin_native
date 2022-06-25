@@ -1,18 +1,26 @@
 import { Link } from "@react-navigation/native";
 import { FlatList, Image, Button } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { useIsFocused, useLinkTo } from "@react-navigation/native";
 import { selectAllBoards } from "../app/board";
 import { IMG_PATH } from "../app/AxiosApi";
 import { View, Text } from "../components/Themed";
 import BoardScreen from "./BoardScreen";
 import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { CookieText } from "../components/StyledText";
+import LogoutBar from "./login/LogoutBar";
 
 const TabOneScreen = ({}) => {
   // <Button title="+" onPress={() => {linkto("/Users")}}></Button>
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <LogoutBar />
+      <View style={styles.container}>
+        {/* <BoardScreen board={Boards}></BoardScreen> */}
+        <BoardScreen></BoardScreen>
+      </View>
       <View
         style={{
           backgroundColor: "#CCCCFF",
@@ -20,7 +28,7 @@ const TabOneScreen = ({}) => {
         }}
       >
         <Link to={{ screen: "BoardAdd" }}>
-          <Text
+          <CookieText
             style={{
               backgroundColor: "#CCCCFF",
               color: "black",
@@ -28,14 +36,10 @@ const TabOneScreen = ({}) => {
             }}
           >
             글 작성하러 가기
-          </Text>
+          </CookieText>
         </Link>
       </View>
-      <View style={styles.container}>
-        {/* <BoardScreen board={Boards}></BoardScreen> */}
-        <BoardScreen></BoardScreen>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({

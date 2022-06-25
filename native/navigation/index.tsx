@@ -30,6 +30,7 @@ import BoardAddScreen from "../screens/BoardAddScreen";
 import GiftDetailScreen from "../screens/GiftDetailScreen";
 import GiftScreen from "../screens/GiftScreen";
 import JoinScreen from "../screens/login/JoinScreen";
+import PaperModalScreen from "../screens/Papers/PaperModalScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
@@ -47,14 +48,13 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  //강제 로그인
-  //AsyncStorage.setItem("loginUser", "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MTM2MjM5fQ.dbPPdeNGV9-0Wwl0IOa7HnJnJCYHyf5fTct3K1Oes_Y");
   return (
     <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: "beige" }, headerShadowVisible: false }}>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        {/* <Stack.Screen name="Modal" component={ModalScreen} /> */}
+        <Stack.Screen name="PaperModal" component={PaperModalScreen} options={{ title: "선물확인" }} />
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="MyPapers" component={MyPapersScreen} />
@@ -120,31 +120,32 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarStyle: { backgroundColor: "beige" },
+        headerShown: false,
       }}
     >
       <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome name="info-circle" size={25} color={Colors[colorScheme].text} style={{ marginRight: 15 }} />
-            </Pressable>
-          ),
+          title: "Feed",
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate("Modal")}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}
+          //   >
+          //     <FontAwesome name="info-circle" size={25} color={Colors[colorScheme].text} style={{ marginRight: 15 }} />
+          //   </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen
         name="Users"
         component={UsersScreen}
         options={{
-          title: "쪽지",
+          title: "Paper",
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="edit" color={color} />,
         }}
@@ -153,8 +154,8 @@ function BottomTabNavigator() {
         name="Gift"
         component={GiftScreen}
         options={({ navigation }: RootTabScreenProps<"Gift">) => ({
-          title: "선물하기",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Gift",
+          tabBarIcon: ({ color }) => <TabBarIcon name="gift" color={color} />,
         })}
       />
     </BottomTab.Navigator>

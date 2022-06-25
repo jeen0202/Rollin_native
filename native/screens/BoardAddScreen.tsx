@@ -1,10 +1,13 @@
-import { Button, Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Button, Image, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { insertBoard, selectAllBoards } from "../app/board";
+import Icon from "@expo/vector-icons/AntDesign";
+import { Text, View } from "../components/Themed";
 import { Link } from "@react-navigation/native";
-const BoardAddScreen = ({ navigation }) => {
+import { SafeAreaView } from "react-native-safe-area-context";
+const BoardAddScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
   const [post, setPost] = useState({
     img: "",
@@ -20,7 +23,7 @@ const BoardAddScreen = ({ navigation }) => {
       return;
     }
 
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+    let pickerResult: any = await ImagePicker.launchImageLibraryAsync({
       // base64: true,
     });
 
@@ -47,18 +50,45 @@ const BoardAddScreen = ({ navigation }) => {
     alert("작성이 완료 되었습니다");
   };
   return (
-    <View>
+    <SafeAreaView style={style.container}>
       <TouchableOpacity onPress={() => openImagePickerAsync()}>
-        <Text>Pick a photo</Text>
+        <Icon name="camera" size={30} color="black" style={{ alignSelf: "flex-end" }}></Icon>
       </TouchableOpacity>
-      {previewImg ? <Image source={{ uri: previewImg }} style={{ height: 200, width: 200 }}></Image> : null}
+      {previewImg ? <Image source={{ uri: previewImg }} style={{ height: 200, width: "100%" }}></Image> : null}
       <TextInput
+        multiline={true}
+        numberOfLines={5}
+        style={style.TextInput}
         onChangeText={(value) => setPost({ ...post, content: value })}
         value={post.content} //
-        placeholder="content"
+        placeholder="글작성"
       ></TextInput>
-      <Button onPress={onSubmit} title="submit"></Button>
-    </View>
+      <View style={style.icon}>
+        <Icon onPress={onSubmit} name="check" size={30} color="#3143e8"></Icon>
+      </View>
+    </SafeAreaView>
   );
 };
 export default BoardAddScreen;
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignContent: "center",
+    backgroundColor: "beige",
+  },
+  TextInput: {
+    marginTop: 16,
+    borderWidth: 2,
+    borderColor: "black",
+    borderRadius: 8,
+    padding: 16,
+    maxHeight: 150,
+    backgroundColor: "white",
+  },
+  icon: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "beige",
+  },
+});

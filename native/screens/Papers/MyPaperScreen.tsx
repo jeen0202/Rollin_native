@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { useEffect } from "react";
 import { StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,10 +12,13 @@ import PaperListScreen from "./PaperListScreen";
 export default function MyPapersScreen({ route }: any) {
   const dispatch = useDispatch();
   const myPapers = useSelector((state: RootState) => state.paper.papers);
+  const isFocused = useIsFocused();
   useEffect(() => {
-    dispatch(loadPapers());
-    // console.log(myPapers);
-  }, []);
+    if (isFocused) {
+      dispatch(loadPapers());
+      // console.log(myPapers);
+    }
+  }, [isFocused]);
 
   return (
     <View style={styles.container}>

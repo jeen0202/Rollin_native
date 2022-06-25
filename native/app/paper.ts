@@ -34,13 +34,13 @@ const paperSlice = createSlice({
       // console.log(action.payload);
       state.selectedUser = undefined;
     },
-    getPapersFail: (state: paperState, action: PayloadAction<Error>) => {
+    getPapersFail: (state: paperState, action: PayloadAction<any>) => {
       state.isLoading = false;
       state.error = action.payload;
       state.selectedUser = undefined;
     },
-    requestGetGift: (state: paperState, action: PayloadAction<object>) => {
-      console.log(action.payload);
+    requestGetGift: (state: paperState, action: PayloadAction<number>) => {
+      console.log("선물 데이터 요청", action.payload);
     },
     getGiftFromId: (state: paperState, action: PayloadAction<gift>) => {
       const newPaper = { ...state.selectedPaper!, gift: action.payload };

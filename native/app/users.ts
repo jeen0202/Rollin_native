@@ -34,6 +34,7 @@ const userSlice = createSlice({
     },
     setCheck: (state: userState, action: PayloadAction<number>) => {
       state.check = action.payload;
+      // console.log("setCheck : ", action.payload);
     },
     getUsers: (state: userState, action: PayloadAction<Array<user>>) => {
       state.users = action.payload;

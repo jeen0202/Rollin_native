@@ -44,7 +44,7 @@ export default function PaperAddScreen({ route, navigation }: any) {
           onChangeText={(content) => onChangeHandler("content", content)}
         ></TextInput>
       </ScrollView>
-      <TouchableOpacity onPress={() => submitPaper()}>
+      <TouchableOpacity style={styles.checkInput} onPress={() => submitPaper()}>
         <CookieText style={{ fontSize: 20, textAlign: "center" }}>작성 완료</CookieText>
       </TouchableOpacity>
 
@@ -65,11 +65,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
   inputStyle: {
     fontSize: 20,
     ...Platform.select({
@@ -82,5 +77,10 @@ const styles = StyleSheet.create({
         fontFamily: "cookieRun",
       },
     }),
+  },
+  checkInput: {
+    backgroundColor: "#CCCCFF",
+    color: "black",
+    alignItems: "center",
   },
 });

@@ -11,12 +11,13 @@ import { InputStyles, user } from "../../types";
 export default function JoinScreen({ navigation }: any) {
   const dispatch = useDispatch();
   const [newUser, setnewUser] = useState<user>();
-  const idCheck = useSelector((state: RootState) => state.user.check);
+  const check = useSelector((state: RootState) => state.user.check);
+
   const onChangeHandler = (name: string, value: string) => {
     setnewUser({ ...newUser!, [name]: value });
   };
-  const onSubmitButton = () => {
-    if (newUser?.userId === "" || newUser!.userId === undefined) {
+  const onSubmitButton = async () => {
+    if (newUser?.userId === "" || newUser?.userId === undefined) {
       alert("ID를 입력해주세요");
       setnewUser(undefined);
     } else if (newUser?.password === "" || newUser?.password === undefined) {
@@ -26,14 +27,9 @@ export default function JoinScreen({ navigation }: any) {
       alert("이름을 입력해주세요");
       setnewUser(undefined);
     } else {
-      dispatch(joinIdCheck(newUser));
-      if (idCheck === 0) {
-        dispatch(fistload());
-        navigation.navigate("Login");
-      } else {
-        alert("이미 존재하는 아이디입니다.\n 다시 확인해 주세요");
-        setnewUser({ ...newUser, userId: "" });
-      }
+      dispatch(addUser(newUser));
+      setnewUser(undefined);
+      navigation.navigate("Login");
     }
   };
   return (
