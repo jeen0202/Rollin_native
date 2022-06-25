@@ -8,9 +8,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { IMG_PATH } from "../app/AxiosApi";
 import { RootState } from "../app/store";
 import { CookieText } from "../components/StyledText";
-
+import ExpoFastImage from "expo-fast-image";
 let imagePath = require("./img_640x640.jpg");
-
 const BoardScreen = () => {
   const Boards = useSelector((state: any) => state.boards.allBoards);
   const dispatch = useDispatch();
@@ -35,14 +34,20 @@ const renderItem = ({ item }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <Link to={{ screen: "Comment" }}>
-        <Image
+        <ExpoFastImage
+          uri={`${IMG_PATH}${item.img}`} // image address
+          cacheKey={item.id} // could be a unque id
+          style={{ paddingLeft: 50, width: 300, height: 300 }} // your custom style object
+          // any supported props by Image
+        />
+        {/* <Image
           source={{ uri: `${IMG_PATH}${item.img}` }}
           style={{
             paddingLeft: 50,
             width: 300,
             height: 300,
           }}
-        ></Image>
+        ></Image> */}
         <View style={styles.row}>
           <Image
             style={{

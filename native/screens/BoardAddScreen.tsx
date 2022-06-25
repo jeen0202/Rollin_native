@@ -1,4 +1,4 @@
-import { Button, Image, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { Button, Image, TextInput, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -24,7 +24,8 @@ const BoardAddScreen = ({ navigation }: any) => {
     }
 
     let pickerResult: any = await ImagePicker.launchImageLibraryAsync({
-      // base64: true,
+      base64: true,
+      quality: Platform.OS === "ios" ? 0.2 : 1,
     });
 
     const splitUri = pickerResult.uri.split("/");

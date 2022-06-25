@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Button, StyleSheet, TextInput, TouchableOpacity } from "react-native";
-import { View, Text } from "../../components/Themed";
-import { checkLogin, login, tryLogin } from "../../app/users";
-import axios from "axios";
+import { StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { checkLogin, tryLogin } from "../../app/users";
 import { user } from "../../types";
 import { InputStyles } from "./../../types";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CookieText } from "../../components/StyledText";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 const LoginScreen = () => {
   const dispatch = useDispatch();
   const [newUser, setNewUser] = useState<user>();
   useEffect(() => {
     dispatch(checkLogin());
   }, []);
-  // const onChangeid = (e) => {
-  //     setId(e.target.value)
-  //     console.log(e)
-  // }
-
-  // const onChangepassword = (e) => {
-  //     setPassword(e.target.value)
-  // }
 
   const onChangeHandler = (name: string, value: string) => {
     setNewUser({ ...newUser!, [name]: value });
-    // console.log(user);
   };
 
   const onButtonClick = () => {
@@ -41,6 +31,8 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <CookieText style={styles.title}>Rollin</CookieText>
+      <MaterialCommunityIcons name="email-newsletter" size={100} />
       <TextInput
         style={{ ...InputStyles.inputStyle }}
         autoCapitalize="none"
@@ -71,6 +63,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "beige",
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
   },
 });
 

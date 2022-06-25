@@ -9,7 +9,7 @@ export default function LogoutBar() {
 
   return (
     <View style={{ backgroundColor: "beige", alignItems: "flex-end" }}>
-      <Button title="로그아웃" onPress={() => dispatch(logout())} />
+      <Button title="로그아웃" color="black" onPress={() => dispatch(logout())} />
     </View>
   );
 }
