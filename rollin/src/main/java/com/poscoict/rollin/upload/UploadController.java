@@ -1,6 +1,8 @@
 package com.poscoict.rollin.upload;
 
+import com.poscoict.rollin.config.FirebaseService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ import java.io.IOException;
 public class UploadController {
     @Value("${file}")
     private String filePath;
+    @Autowired
+    FirebaseService firebaseService;
+
     @PostMapping("/upload")
     public ResponseEntity saveImg(@RequestBody MultipartFile file) throws IOException {
         log.info("들어왔다");
@@ -29,5 +34,13 @@ public class UploadController {
 
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("file is empty");
+    }
+    @PostMapping("/fireStorage")
+    public String uploaFile(@RequestBody MultipartFile file) throws IOException {
+
+        if(file.isEmpty()){
+            return "is empty";
+        }
+        return firebaseService.uploadFiles(file);
     }
 }

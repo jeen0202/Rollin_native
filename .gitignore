@@ -39,3 +39,4 @@ native/npm-debug.*
 *.mobileprovision
 *.orig.*
 node_modules
+rollin/src/main/resources/RollinServiceAccountKey.json

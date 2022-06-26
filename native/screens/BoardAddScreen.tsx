@@ -25,7 +25,7 @@ const BoardAddScreen = ({ navigation }: any) => {
 
     let pickerResult: any = await ImagePicker.launchImageLibraryAsync({
       base64: true,
-      quality: Platform.OS === "ios" ? 0.2 : 1,
+      quality: Platform.OS === "ios" ? 0.1 : 0.2,
     });
 
     const splitUri = pickerResult.uri.split("/");

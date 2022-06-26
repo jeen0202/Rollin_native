@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { useIsFocused, useLinkTo } from "@react-navigation/native";
 import { selectAllBoards } from "../app/board";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { IMG_PATH } from "../app/AxiosApi";
+import { FIRESTORAGE_PATH, IMG_PATH } from "../app/AxiosApi";
 import { RootState } from "../app/store";
 import { CookieText } from "../components/StyledText";
 import ExpoFastImage from "expo-fast-image";
@@ -37,7 +37,7 @@ const renderItem = ({ item }: any) => {
         <ExpoFastImage
           uri={`${IMG_PATH}${item.img}`} // image address
           cacheKey={item.id} // could be a unque id
-          style={{ paddingLeft: 50, width: 300, height: 300 }} // your custom style object
+          style={{ paddingLeft: 50, width: 400, height: 300 }} // your custom style object
           // any supported props by Image
         />
         {/* <Image
