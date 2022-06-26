@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GestureResponderEvent, SafeAreaView, TouchableOpacity } from "react-native";
+import { GestureResponderEvent, Platform, SafeAreaView, TouchableOpacity } from "react-native";
 import { StyleSheet, TextInput, Button, Image, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import RNPickerSelect from "react-native-picker-select";
@@ -7,6 +7,7 @@ import { Text, View } from "../components/Themed";
 import { IMG_PATH } from "../app/AxiosApi";
 import { getGift, getReceivers, requestGetGiftName, requestSort, updateView } from "../app/gifts";
 import { RootState } from "../app/store";
+import { CookieText } from "../components/StyledText";
 
 const GiftScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
@@ -57,22 +58,27 @@ const GiftScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <View>
-          <TextInput placeholder="Search..." onChangeText={(newText) => setSearchKey(newText)}></TextInput>
-          <Button title="검색" onPress={onSubmitSearch} color="blue"></Button>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ flex: 0.2, justifyContent: "center" }}>
+            <RNPickerSelect
+              onValueChange={(value) => setSortKey(value)}
+              placeholder={{ label: "정렬", value: null }}
+              items={[
+                { label: "구매순", value: "count" },
+                { label: "조회순", value: "view" },
+                { label: "가격높은순", value: "hprice" },
+                { label: "가격낮은순", value: "lprice" },
+              ]}
+            ></RNPickerSelect>
+          </View>
+          <TextInput style={styles.inputStyle} placeholder="Search..." onChangeText={(newText) => setSearchKey(newText)}></TextInput>
+          <TouchableOpacity style={styles.checkInput} onPress={() => onSubmitSearch()}>
+            <CookieText style={{ fontSize: 20, textAlign: "center" }}>검색</CookieText>
+          </TouchableOpacity>
+          {/* <Button title="검색" onPress={onSubmitSearch} color="black"></Button> */}
         </View>
         <View>
-          <Text>총상품개수 : {allGifts.length}</Text>
-          <RNPickerSelect
-            onValueChange={(value) => setSortKey(value)}
-            placeholder={{ label: "정렬", value: null }}
-            items={[
-              { label: "구매순", value: "count" },
-              { label: "조회순", value: "view" },
-              { label: "가격높은순", value: "hprice" },
-              { label: "가격낮은순", value: "lprice" },
-            ]}
-          ></RNPickerSelect>
+          <CookieText>총상품개수 : {allGifts.length}</CookieText>
         </View>
         <View style={{ flex: 1, flexWrap: "nowrap", flexDirection: "row" }}>
           <FlatList data={allGifts} renderItem={(item) => renderGifts(item)} numColumns={2} disableVirtualization></FlatList>
@@ -98,5 +104,27 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: "80%",
+  },
+  inputStyle: {
+    fontSize: 20,
+    flex: 0.7,
+    borderBottomWidth: 0.2,
+    borderBottomColor: "gray",
+    ...Platform.select({
+      ios: {
+        fontFamily: "cookieRun",
+        fontWeight: "600",
+        fontStyle: "normal",
+      },
+      android: {
+        fontFamily: "cookieRun",
+      },
+    }),
+  },
+  checkInput: {
+    flex: 0.2,
+    backgroundColor: "#CCCCFF",
+    color: "black",
+    alignItems: "center",
   },
 });

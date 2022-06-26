@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Button, Image, Platform, StyleSheet, TextInput } from "react-native";
+import { Button, Image, Platform, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { Item } from "react-native-picker-select";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -12,6 +12,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { useEffect } from "react";
 import { user } from "../types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { CookieText } from "../components/StyledText";
 
 const GiftDetailScreen = ({ navigation }: any) => {
   const gift = useSelector((state: RootState) => state.gifts.detailGift.gift!);
@@ -62,7 +63,7 @@ const GiftDetailScreen = ({ navigation }: any) => {
   };
 
   const onCancle = () => {
-    navigation.navigate("Gift");
+    navigation.goBack();
   };
 
   // console.log("receiverList:", receiverList);
@@ -81,27 +82,43 @@ const GiftDetailScreen = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>{gift?.content}</Text>
-      <Image source={{ uri: `${IMG_PATH}${gift?.img}` }} style={{ width: 230, height: 180, borderRadius: 10 }} key={gift?.id}></Image>
-      <Text style={{ margin: 10 }}>닉네임</Text>
-      <TextInput placeholder="닉네임을 입력하세요" onChangeText={(newNickName) => setNickName(newNickName)}></TextInput>
-      <Text style={{ margin: 20 }}>받는 사람</Text>
-      <RNPickerSelect
-        onValueChange={(value) => setForm({ ...form, userId: value })}
-        placeholder={{ label: "받는사람", value: null }}
-        items={receiverList}
-      ></RNPickerSelect>
-      <Text style={{ margin: 20 }}>메시지</Text>
-      <TextInput
-        multiline
-        numberOfLines={4}
-        placeholder="메시지를 입력하세요"
-        onChangeText={(newContent: any) => onChangeContent(newContent)}
-        value={form?.content}
-        style={{ padding: 10, borderColor: "gray", borderWidth: 1 }}
-      />
-      <Button title="선물하기" onPress={() => onSubmit} color="blue"></Button>
-      <Button title="취소" onPress={() => onCancle} color="blue"></Button>
+      <CookieText style={styles.title}>{gift?.content}</CookieText>
+      <Image source={{ uri: `${IMG_PATH}${gift?.img}` }} style={{ width: 400, height: 300, borderRadius: 10 }} key={gift?.id}></Image>
+      <View style={{ flexDirection: "row", marginTop: 10 }}>
+        <CookieText style={{ flex: 0.4, fontSize: 20 }}>닉네임</CookieText>
+        <TextInput style={styles.inputStyle} placeholder="닉네임을 입력하세요" onChangeText={(newNickName) => setNickName(newNickName)}></TextInput>
+      </View>
+      <View style={{ flexDirection: "row", marginTop: 10 }}>
+        <CookieText style={{ flex: 0.3, fontSize: 20 }}>받는 사람</CookieText>
+        <View style={{ flex: 0.7 }}>
+          <RNPickerSelect
+            onValueChange={(value) => setForm({ ...form, userId: value })}
+            placeholder={{ label: "받는사람", value: null }}
+            items={receiverList}
+          ></RNPickerSelect>
+        </View>
+      </View>
+      <View style={{ flexDirection: "row", marginTop: 10 }}>
+        <CookieText style={{ flex: 0.4, fontSize: 20 }}>메시지</CookieText>
+        <TextInput
+          multiline
+          numberOfLines={4}
+          placeholder="메시지를 입력하세요"
+          onChangeText={(newContent: any) => onChangeContent(newContent)}
+          value={form?.content}
+          style={{ ...styles.inputStyle }}
+        />
+      </View>
+      <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 10 }}>
+        <TouchableOpacity style={styles.checkInput} onPress={() => onSubmit()}>
+          <CookieText style={{ fontSize: 20, textAlign: "center" }}>선물하기</CookieText>
+        </TouchableOpacity>
+        {/* <Button title="선물하기" onPress={() => onSubmit} color="blue"></Button> */}
+        <TouchableOpacity style={styles.checkInput} onPress={() => onCancle()}>
+          <CookieText style={{ fontSize: 20, textAlign: "center" }}>취소</CookieText>
+        </TouchableOpacity>
+        {/* <Button title="취소" onPress={() => onCancle} color="blue"></Button> */}
+      </View>
     </SafeAreaView>
   );
 };
@@ -114,6 +131,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "beige",
+    padding: 10,
   },
   title: {
     fontSize: 20,
@@ -124,5 +142,25 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     height: 1,
     width: "80%",
+  },
+  inputStyle: {
+    fontSize: 20,
+    flex: 0.6,
+    ...Platform.select({
+      ios: {
+        fontFamily: "cookieRun",
+        fontWeight: "600",
+        fontStyle: "normal",
+      },
+      android: {
+        fontFamily: "cookieRun",
+      },
+    }),
+  },
+  checkInput: {
+    flex: 0.2,
+    backgroundColor: "#CCCCFF",
+    color: "black",
+    alignItems: "center",
   },
 });
