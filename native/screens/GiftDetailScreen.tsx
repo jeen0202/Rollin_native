@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Image, Platform, StyleSheet, TextInput } from "react-native";
 import { Item } from "react-native-picker-select";
 import { useDispatch } from "react-redux";
@@ -11,12 +11,11 @@ import { RootState } from "../app/store";
 import RNPickerSelect from "react-native-picker-select";
 import { useEffect } from "react";
 import { user } from "../types";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const GiftDetailScreen = ({ navigation }: any) => {
   const gift = useSelector((state: RootState) => state.gifts.detailGift.gift!);
-  const receivers = useSelector(
-    (state: RootState) => state.gifts.receiversInfo.receivers
-  );
+  const receivers = useSelector((state: RootState) => state.gifts.receiversInfo.receivers);
   const me = useSelector((state: RootState) => state.user.me);
   const dispatch = useDispatch();
 
@@ -70,29 +69,22 @@ const GiftDetailScreen = ({ navigation }: any) => {
   // console.log("receivers", receivers);
 
   useEffect(() => {
-    const newList = receivers.map((x) => {
+    const newList = receivers?.map((x) => {
       // console.log("x:", x);
       return {
-        label: x.name,
-        value: x.id,
+        label: x!.name,
+        value: x!.id,
       };
     });
     setReceiverList(newList);
   }, [receivers]);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>{gift?.content}</Text>
-      <Image
-        source={{ uri: `${IMG_PATH}${gift?.img}` }}
-        style={{ width: 230, height: 180, borderRadius: 10 }}
-        key={gift?.id}
-      ></Image>
+      <Image source={{ uri: `${IMG_PATH}${gift?.img}` }} style={{ width: 230, height: 180, borderRadius: 10 }} key={gift?.id}></Image>
       <Text style={{ margin: 10 }}>닉네임</Text>
-      <TextInput
-        placeholder="닉네임을 입력하세요"
-        onChangeText={(newNickName) => setNickName(newNickName)}
-      ></TextInput>
+      <TextInput placeholder="닉네임을 입력하세요" onChangeText={(newNickName) => setNickName(newNickName)}></TextInput>
       <Text style={{ margin: 20 }}>받는 사람</Text>
       <RNPickerSelect
         onValueChange={(value) => setForm({ ...form, userId: value })}
@@ -105,12 +97,12 @@ const GiftDetailScreen = ({ navigation }: any) => {
         numberOfLines={4}
         placeholder="메시지를 입력하세요"
         onChangeText={(newContent: any) => onChangeContent(newContent)}
-        value={form.content}
+        value={form?.content}
         style={{ padding: 10, borderColor: "gray", borderWidth: 1 }}
       />
-      <Button title="선물하기" onPress={onSubmit} color="blue"></Button>
-      <Button title="취소" onPress={onCancle} color="blue"></Button>
-    </View>
+      <Button title="선물하기" onPress={() => onSubmit} color="blue"></Button>
+      <Button title="취소" onPress={() => onCancle} color="blue"></Button>
+    </SafeAreaView>
   );
 };
 
@@ -121,6 +113,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "beige",
   },
   title: {
     fontSize: 20,

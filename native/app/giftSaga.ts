@@ -79,9 +79,9 @@ function* handleSelectGiftByKey(data: { payload: any }) {
     // console.log("handleSelectGiftByKey, data.payload: ", data.payload);
     const giftId = data.payload;
     // console.log("handleSelectGiftByKey, giftId:", giftId);
-    const giftByKey: gift = yield call(defaultAxios, `/gift/${giftId}`, "get", undefined);
+    const giftByKey: AxiosResponse<any, any> = yield call(defaultAxios, `/gift/${giftId}`, "get", undefined);
     // console.log("handleSelectGiftByKey, giftByKey: ", giftByKey);
-    yield put(selectGiftByKey(giftByKey));
+    yield put(selectGiftByKey(giftByKey.data));
   } catch (error) {
     console.error(error);
   }
@@ -91,10 +91,10 @@ function* handleSelectReceivers(data: { payload: any }) {
   try {
     // const userId = yield select((state) => state.user.me.uid);
     const userId = data.payload;
-    const receivers: Array<user> = yield call(defaultAxios, `/gift/receiver/${userId}`, "get", undefined);
+    const receivers: AxiosResponse<any, any> = yield call(defaultAxios, `/gift/receiver/${userId}`, "get", undefined);
     // console.log("handleSelectReceivers, receivers:", receivers);
-    yield put(selectReceivers(receivers));
-  } catch (error) {
+    yield put(selectReceivers(receivers.data));
+  } catch (error: any) {
     console.error(error);
   }
 }

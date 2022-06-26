@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GestureResponderEvent, TouchableOpacity } from "react-native";
+import { GestureResponderEvent, SafeAreaView, TouchableOpacity } from "react-native";
 import { StyleSheet, TextInput, Button, Image, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import RNPickerSelect from "react-native-picker-select";
@@ -28,7 +28,7 @@ const GiftScreen = ({ navigation }: any) => {
   };
 
   const goDetail = (id: any) => {
-    console.log(id);
+    // console.log(id);
     dispatch(getGift(Number.parseInt(id)));
 
     dispatch(updateView(Number.parseInt(id)));
@@ -55,7 +55,7 @@ const GiftScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <View>
           <TextInput placeholder="Search..." onChangeText={(newText) => setSearchKey(newText)}></TextInput>
@@ -78,7 +78,7 @@ const GiftScreen = ({ navigation }: any) => {
           <FlatList data={allGifts} renderItem={(item) => renderGifts(item)} numColumns={2} disableVirtualization></FlatList>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

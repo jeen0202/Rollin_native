@@ -90,20 +90,17 @@ export const giftsSlice = createSlice({
       console.log("view+1");
     },
     getGift: (state: giftState, action: PayloadAction<number>) => {
-      console.log("gifts.js 안의 getGift, action.payload:", action.payload);
+      // console.log("gifts.js 안의 getGift, action.payload:", action.payload);
       state.giftId = action.payload;
     },
     selectGiftByKey: (state: giftState, action: PayloadAction<any>) => {
-      console.log("gifts.js 안의 selectGfitByKey, action.payload.data:", action.payload.data);
-      state.detailGift.gift = action.payload.data;
+      console.log("gifts.js 안의 selectGfitByKey, action.payload.data:", action.payload);
+      state.detailGift.gift = action.payload;
     },
     getReceivers: (state: giftState, action: PayloadAction<number>) => {},
     selectReceivers: (state: giftState, action: PayloadAction<any>) => {
-      // console.log(
-      //   "selectReceivers 안의 action.payload.data:",
-      //   action.payload.data
-      // );
-      state.receiversInfo.receivers = action.payload.data;
+      // console.log("selectReceivers 안의 action.payload.data:", action.payload);
+      state.receiversInfo.receivers = action.payload;
     },
     insertGift: (state: giftState, action: PayloadAction<any>) => {
       console.log("gifts.ts의 insertGift");

@@ -34,20 +34,20 @@ const renderItem = ({ item }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <Link to={{ screen: "Comment" }}>
-        <ExpoFastImage
+        {/* <ExpoFastImage
           uri={`${IMG_PATH}${item.img}`} // image address
           cacheKey={item.id} // could be a unque id
           style={{ paddingLeft: 50, width: 400, height: 300 }} // your custom style object
           // any supported props by Image
-        />
-        {/* <Image
+        /> */}
+        <Image
           source={{ uri: `${IMG_PATH}${item.img}` }}
           style={{
             paddingLeft: 50,
-            width: 300,
+            width: 400,
             height: 300,
           }}
-        ></Image> */}
+        ></Image>
         <View style={styles.row}>
           <Image
             style={{
