@@ -1,29 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { user } from "../types";
-export type gift = {
-  id: number;
-  price?: number;
-  content: string;
-  count?: number;
-  img?: string;
-  name?: string;
-  views?: number;
-};
+import { user, giftState } from "../types";
 
-export type giftState = {
-  allGifts: Array<gift>;
-  giftId?: number;
-  error?: Error;
-  isLoading: boolean;
-  detailGift: {
-    gift?: gift;
-    message: string;
-  };
-  receiversInfo: {
-    receivers: Array<user>;
-    message: string;
-  };
-};
 const initialState: giftState = {
   allGifts: [],
   isLoading: false,
@@ -36,6 +13,64 @@ const initialState: giftState = {
     message: "",
   },
 };
+
+// action 타입
+// const SELECT_GIFT_BY_KEY = "SELECT_GIFT_BY_KEY";
+// const SELECT_ALL_GIFTS = "SELECT_ALL_GIFTS";
+// const SELECT_RECEIVERS_BY_KEY = "SELECT_RECEIVER_NAMES_BY_KEY";
+// const INSERT_GIFT = "INSERT_GIFT";
+
+// export const selectGiftByKey = createAsyncThunk(
+//   SELECT_GIFT_BY_KEY,
+//   async (payload) => {
+//     const gift = await getGiftById(Number(1));
+//     return gift;
+//   }
+// );
+
+// // 로그인한 user id가 아닌 사람들 name 가져오기
+// export const selectReceivers = createAsyncThunk(
+//   SELECT_RECEIVERS_BY_KEY,
+//   async (payload) => {
+//     const receivers = await getReceiverNamesNotUserId(Number(1));
+//     return receivers;
+//   }
+// );
+// export const selectGiftByKey = createAsyncThunk(
+//   SELECT_GIFT_BY_KEY,
+//   async (payload) => {
+//     const gift = await getGiftById(Number(1));
+//     return gift;
+//   }
+// );
+
+// // 로그인한 user id가 아닌 사람들 name 가져오기
+// export const selectReceivers = createAsyncThunk(
+//   SELECT_RECEIVERS_BY_KEY,
+//   async (payload) => {
+//     const receivers = await getReceiverNamesNotUserId(Number(1));
+//     return receivers;
+//   }
+// );
+
+// export const selectAllgifts = createAsyncThunk(SELECT_ALL_GIFTS, async () => {
+//   return await giftsApi();
+// });
+
+// export const insertGift = createAsyncThunk(INSERT_GIFT, async (payload) => {
+//   const { receiverId, content } = payload;
+//   //giftId 받아온걸로 바꿔주기
+//   console.log("insertGift안에서 receiverId: ", receiverId);
+//   const gift = {
+//     userId: Number(receiverId),
+//     nickname: "nickname",
+//     content,
+//     giftId: 1,
+//   };
+//   console.log("insertGift안에서 gift: ", gift);
+//   console.log(receiverId);
+//   return await postGift(gift);
+// });
 
 export const giftsSlice = createSlice({
   name: "gifts",
@@ -59,10 +94,9 @@ export const giftsSlice = createSlice({
       state.giftId = action.payload;
     },
     selectGiftByKey: (state: giftState, action: PayloadAction<any>) => {
-      console.log(
-        "gifts.js 안의 selectGfitByKey, action.payload.data:",
-        action.payload
-      );
+
+      console.log("gifts.js 안의 selectGfitByKey, action.payload.data:", action.payload);
+
       state.detailGift.gift = action.payload;
     },
     getReceivers: (state: giftState, action: PayloadAction<number>) => {},

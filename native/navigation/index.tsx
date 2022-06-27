@@ -5,23 +5,16 @@
  */
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  NavigationContainer,
-  DefaultTheme,
-  DarkTheme,
-} from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName } from "react-native";
+
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
-import {
-  RootStackParamList,
-  RootTabParamList,
-  RootTabScreenProps,
-} from "../types";
+import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import UsersScreen from "../screens/Papers/UsersScreen";
 import PaperAddScreen from "../screens/Papers/PaperAddScreen";
@@ -36,18 +29,14 @@ import JoinScreen from "../screens/login/JoinScreen";
 import PaperModalScreen from "../screens/Papers/PaperModalScreen";
 import GiftDetailScreen from "../screens/GiftDetailScreen";
 import GiftScreen from "../screens/GiftScreen";
+import JoinScreen from "../screens/login/JoinScreen";
+import PaperModalScreen from "../screens/Papers/PaperModalScreen";
 
-export default function Navigation({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+
+export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
   return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer linking={LinkingConfiguration} theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       {isLogin ? <RootNavigator /> : <LoginNavigator />}
     </NavigationContainer>
   );
@@ -61,29 +50,14 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: "beige" },
-        headerShadowVisible: false,
-      }}
-    >
-      <Stack.Screen
-        name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
+    <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: "beige" }, headerShadowVisible: false }}>
+      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         {/* <Stack.Screen name="Modal" component={ModalScreen} /> */}
-        <Stack.Screen
-          name="PaperModal"
-          component={PaperModalScreen}
-          options={{ title: "선물확인" }}
-        />
+
+        <Stack.Screen name="PaperModal" component={PaperModalScreen} options={{ title: "선물확인" }} />
+
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="MyPapers" component={MyPapersScreen} />
@@ -91,16 +65,8 @@ function RootNavigator() {
         <Stack.Screen name="PaperDetail" component={PaperDetailScreen} />
       </Stack.Group>
       <Stack.Group>
-        <Stack.Screen
-          name="BoardAdd"
-          component={BoardAddScreen}
-          options={{ title: "게시판 등록" }}
-        />
-        <Stack.Screen
-          name="Comment"
-          component={CommentScreen}
-          options={{ title: "이글의 댓글" }}
-        />
+        <Stack.Screen name="BoardAdd" component={BoardAddScreen} options={{ title: "게시판 등록" }} />
+        <Stack.Screen name="Comment" component={CommentScreen} options={{ title: "이글의 댓글" }} />
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="Gift" component={GiftScreen} />
@@ -132,9 +98,9 @@ function LoginNavigator() {
         component={LoginScreen}
         options={{
           title: "로그인",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="person" size={25} color={color} />
-          ),
+
+          tabBarIcon: ({ color }) => <Ionicons name="person" size={25} color={color} />,
+
         }}
       ></LoginTab.Screen>
       <LoginTab.Screen
@@ -142,9 +108,9 @@ function LoginNavigator() {
         component={JoinScreen}
         options={{
           title: "회원가입",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="person-add" size={25} color={color} />
-          ),
+
+          tabBarIcon: ({ color }) => <Ionicons name="person-add" size={25} color={color} />,
+
         }}
       ></LoginTab.Screen>
     </LoginTab.Navigator>
@@ -210,9 +176,6 @@ function BottomTabNavigator() {
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
-  color: string;
-}) {
+function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["name"]; color: string }) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
 }

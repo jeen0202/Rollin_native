@@ -1,14 +1,17 @@
 import React from "react";
+
 import { Button, TouchableOpacity, StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { logout } from "../../app/users";
 import { CookieText } from "../../components/StyledText";
+
 import { View } from "../../components/Themed";
 
 export default function LogoutBar() {
   const dispatch = useDispatch();
 
   return (
+
     <View style={{ alignItems: "flex-end" }}>
       <TouchableOpacity
         style={styles.logout}
@@ -37,3 +40,4 @@ const styles = StyleSheet.create({
     padding: 5,
   },
 });
+

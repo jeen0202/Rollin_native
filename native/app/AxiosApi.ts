@@ -1,8 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
-axios.defaults.baseURL = "http://192.168.0.59:8000";
-export const IMG_PATH = "http://192.168.0.59:8000";
+axios.defaults.baseURL = "http://192.168.0.253:8000";
+export const IMG_PATH = "http://192.168.0.253:8000";
+export const FIRESTORAGE_PATH = "gs://rollin-fa609.appspot.com";
 export const defaultAxios = async (url: any, method: any, data: any) => {
   // console.log(`url : ${url}`);
   return await axios({

@@ -4,10 +4,7 @@
  */
 
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
-import {
-  CompositeScreenProps,
-  NavigatorScreenParams,
-} from "@react-navigation/native";
+import { CompositeScreenProps, NavigatorScreenParams } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Platform, StyleSheet } from "react-native";
 
@@ -40,8 +37,7 @@ export type PaperStackParamList = {
   Add: undefined;
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
-  NativeStackScreenProps<RootStackParamList, Screen>;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
 
 export type RootTabParamList = {
   TabOne: undefined;
@@ -52,11 +48,10 @@ export type RootTabParamList = {
   Join: undefined;
 };
 
-export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
-  CompositeScreenProps<
-    BottomTabScreenProps<RootTabParamList, Screen>,
-    NativeStackScreenProps<RootStackParamList>
-  >;
+export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
+  BottomTabScreenProps<RootTabParamList, Screen>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 //Redux state
 export type user =
@@ -125,10 +120,22 @@ export type PaperListProps = {
 
 //styles
 export const listStyles = StyleSheet.create({
-  item: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "beige",
+  item: { justifyContent: "center", alignItems: "center", backgroundColor: "beige" },
+});
+export const InputStyles = StyleSheet.create({
+  inputStyle: {
+    fontSize: 20,
+    margin: 10,
+    ...Platform.select({
+      ios: {
+        fontFamily: "cookieRun",
+        fontWeight: "600",
+        fontStyle: "normal",
+      },
+      android: {
+        fontFamily: "cookieRun",
+      },
+    }),
   },
 });
 export const InputStyles = StyleSheet.create({

@@ -1,11 +1,5 @@
 import { all, call, fork, put, take, takeLatest } from "redux-saga/effects";
-import {
-  SELECT_ALL_BOARDS,
-  BOARDS_REQUEST,
-  FAILED_REQUEST,
-  INSERT_BOARD,
-  INSERT_REQUEST,
-} from "./board";
+import { SELECT_ALL_BOARDS, BOARDS_REQUEST, FAILED_REQUEST, INSERT_BOARD, INSERT_REQUEST } from "./board";
 import { AuthAxios, defaultAxios, fileAxios } from "./AxiosApi";
 
 function* handleInsertBoards(action) {

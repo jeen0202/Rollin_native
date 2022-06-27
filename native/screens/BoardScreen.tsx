@@ -28,18 +28,15 @@ const BoardScreen = () => {
   }, [isFocused]);
   // console.log("Board입니다  ", Boards);
 
-  return (
-    <FlatList
-      data={Boards}
-      renderItem={(item) => renderItem(item)}
-      contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
-    ></FlatList>
-  );
+
+  return <FlatList data={Boards} renderItem={(item) => renderItem(item)} contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}></FlatList>;
+
 };
 const renderItem = ({ item }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <Link to={{ screen: "Comment" }}>
+
         <View>
           <View style={styles.row}>
             <Image
@@ -54,6 +51,7 @@ const renderItem = ({ item }: any) => {
               source={imagePath}
             ></Image>
             {/* <CookieText
+
             style={{
               fontWeight: "bold",
               fontSize: 20,
@@ -62,6 +60,7 @@ const renderItem = ({ item }: any) => {
           >
             {item.userId}
           </CookieText> */}
+
             <CookieText
               style={{
                 paddingTop: 5,
@@ -88,6 +87,7 @@ const renderItem = ({ item }: any) => {
               }}
             ></Image>
           </View>
+
         </View>
       </Link>
     </SafeAreaView>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Button,
   Platform,
@@ -7,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
+
 import { Text, View } from "../../components/Themed";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { paper, user } from "../../types";
@@ -58,9 +60,11 @@ export default function PaperAddScreen({ route, navigation }: any) {
         ></TextInput>
       </ScrollView>
       <TouchableOpacity style={styles.checkInput} onPress={() => submitPaper()}>
+
         <CookieText style={{ fontSize: 25, textAlign: "center" }}>
           작성 완료
         </CookieText>
+
       </TouchableOpacity>
 
       {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
@@ -94,10 +98,12 @@ const styles = StyleSheet.create({
     }),
   },
   checkInput: {
+
     backgroundColor: "#FFDC37",
     color: "black",
     alignItems: "center",
     borderRadius: 10,
     margin: 10,
+
   },
 });
