@@ -163,7 +163,7 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<"Gift">) => ({
           title: "선물하기",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="gift" color={color} />,
         })}
       />
     </BottomTab.Navigator>

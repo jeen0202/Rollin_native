@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { GestureResponderEvent, TouchableOpacity } from "react-native";
+import {
+  GestureResponderEvent,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+} from "react-native";
 import { StyleSheet, TextInput, Button, Image, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import RNPickerSelect from "react-native-picker-select";
@@ -66,18 +70,18 @@ const GiftScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <View
+      <KeyboardAvoidingView
         style={{
           flex: 1,
           alignItems: "stretch",
           backgroundColor: "#FABEBE",
         }}
       >
-        <Text style={{ paddingTop: 50, fontSize: 30 }}>선물하기</Text>
-
-        <View
+        <View style={{ backgroundColor: "#FABEBE", alignItems: "center" }}>
+          <Text style={{ paddingTop: 50, fontSize: 30 }}>선물하기</Text>
+        </View>
+        <KeyboardAvoidingView
           style={{
-            flex: 1,
             flexDirection: "row",
             justifyContent: "space-around",
             backgroundColor: "#FABEBE",
@@ -100,11 +104,11 @@ const GiftScreen = ({ navigation }: any) => {
             onPress={onSubmitSearch}
             color="#F07878"
           ></Button>
-        </View>
-      </View>
+        </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
 
-      <View style={styles.body}>
-        <View
+      <KeyboardAvoidingView style={styles.body}>
+        <KeyboardAvoidingView
           style={{
             backgroundColor: "#FFF0F0",
             borderRadius: 10,
@@ -121,8 +125,8 @@ const GiftScreen = ({ navigation }: any) => {
               { label: "가격낮은순", value: "lprice" },
             ]}
           ></RNPickerSelect>
-        </View>
-        <View style={{ flex: 1 }}>
+        </KeyboardAvoidingView>
+        <KeyboardAvoidingView style={{ flex: 1 }}>
           <View style={{ flex: 1, alignItems: "center", margin: 10 }}>
             <Text>총상품개수 : {allGifts.length}</Text>
           </View>
@@ -134,8 +138,8 @@ const GiftScreen = ({ navigation }: any) => {
               disableVirtualization
             ></FlatList>
           </View>
-        </View>
-      </View>
+        </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </View>
   );
 };

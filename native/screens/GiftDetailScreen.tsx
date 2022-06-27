@@ -109,7 +109,6 @@ const GiftDetailScreen = ({ navigation }: any) => {
         style={{ padding: 10, borderColor: "gray", borderWidth: 1 }}
       />
       <Button title="선물하기" onPress={onSubmit} color="blue"></Button>
-      <Button title="취소" onPress={onCancle} color="blue"></Button>
     </View>
   );
 };
