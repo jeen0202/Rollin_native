@@ -94,7 +94,9 @@ export const giftsSlice = createSlice({
       state.giftId = action.payload;
     },
     selectGiftByKey: (state: giftState, action: PayloadAction<any>) => {
+
       console.log("gifts.js 안의 selectGfitByKey, action.payload.data:", action.payload);
+
       state.detailGift.gift = action.payload;
     },
     getReceivers: (state: giftState, action: PayloadAction<number>) => {},

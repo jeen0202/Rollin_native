@@ -25,7 +25,7 @@ function* handleSearchGifts(data: PayloadAction<string>) {
     const giftName = data.payload;
     let gifts: AxiosResponse<any, any>;
     if (giftName === undefined || giftName === "") {
-      gifts = yield call(defaultAxios, "/gift/", "get", undefined); //call은 주어진 함수를 실행한다
+      gifts = yield call(defaultAxios, "/gift", "get", undefined); //call은 주어진 함수를 실행한다
     } else {
       console.log(giftName);
       gifts = yield call(defaultAxios, `/gift/search/${giftName}`, "get", undefined);
@@ -38,7 +38,7 @@ function* handleSearchGifts(data: PayloadAction<string>) {
 
 function* handleSortGift(data: { payload: { sortKey: any } }) {
   try {
-    console.log("sort start");
+    console.log("handlerSortGift start");
     const sortKey = data.payload.sortKey;
     const allGifts: AxiosResponse<any, any> = yield call(defaultAxios, "/gift/", "get", undefined);
     // console.log(allGifts, sortKey);
@@ -79,6 +79,7 @@ function* handleSelectGiftByKey(data: { payload: any }) {
     // console.log("handleSelectGiftByKey, data.payload: ", data.payload);
     const giftId = data.payload;
     // console.log("handleSelectGiftByKey, giftId:", giftId);
+
     const giftByKey: AxiosResponse<any, any> = yield call(defaultAxios, `/gift/${giftId}`, "get", undefined);
     // console.log("handleSelectGiftByKey, giftByKey: ", giftByKey);
     yield put(selectGiftByKey(giftByKey.data));
@@ -91,6 +92,7 @@ function* handleSelectReceivers(data: { payload: any }) {
   try {
     // const userId = yield select((state) => state.user.me.uid);
     const userId = data.payload;
+
     const receivers: AxiosResponse<any, any> = yield call(defaultAxios, `/gift/receiver/${userId}`, "get", undefined);
     // console.log("handleSelectReceivers, receivers:", receivers);
     yield put(selectReceivers(receivers.data));
@@ -126,7 +128,7 @@ function* sendEmail(data: { payload: any }) {
     console.log("sendEmail, data.payload:", data.payload);
     console.log("giftSaga-sendEmail");
     yield call(defaultAxios, "/mail/send", "post", data.payload);
-  } catch (error: any) {
+  } catch (error) {
     yield put(postEmailFail(error));
     console.error(error);
   }

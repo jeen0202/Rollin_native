@@ -28,38 +28,30 @@ const BoardScreen = () => {
   }, [isFocused]);
   // console.log("Board입니다  ", Boards);
 
+
   return <FlatList data={Boards} renderItem={(item) => renderItem(item)} contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}></FlatList>;
+
 };
 const renderItem = ({ item }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <Link to={{ screen: "Comment" }}>
-        {/* <ExpoFastImage
-          uri={`${IMG_PATH}${item.img}`} // image address
-          cacheKey={item.id} // could be a unque id
-          style={{ paddingLeft: 50, width: 400, height: 300 }} // your custom style object
-          // any supported props by Image
-        /> */}
-        <Image
-          source={{ uri: `${IMG_PATH}${item.img}` }}
-          style={{
-            paddingLeft: 50,
-            width: 400,
-            height: 300,
-          }}
-        ></Image>
-        <View style={styles.row}>
-          <Image
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 100 / 2,
-              backgroundColor: "beige",
-              paddingRight: 20,
-            }}
-            source={imagePath}
-          ></Image>
-          {/* <CookieText
+
+        <View>
+          <View style={styles.row}>
+            <Image
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 100 / 2,
+                backgroundColor: "beige",
+                paddingRight: 20,
+                margin: 10,
+              }}
+              source={imagePath}
+            ></Image>
+            {/* <CookieText
+
             style={{
               fontWeight: "bold",
               fontSize: 20,
@@ -68,14 +60,34 @@ const renderItem = ({ item }: any) => {
           >
             {item.userId}
           </CookieText> */}
-          <CookieText
-            style={{
-              paddingTop: 5,
-              fontSize: 30,
-            }}
-          >
-            {item.content}
-          </CookieText>
+
+            <CookieText
+              style={{
+                paddingTop: 5,
+                fontSize: 25,
+                marginBottom: 5,
+              }}
+            >
+              {item.content}
+            </CookieText>
+          </View>
+          {/* <ExpoFastImage
+          uri={`${IMG_PATH}${item.img}`} // image address
+          cacheKey={item.id} // could be a unque id
+          style={{ paddingLeft: 50, width: 400, height: 300 }} // your custom style object
+          // any supported props by Image
+        /> */}
+          <View>
+            <Image
+              source={{ uri: `${IMG_PATH}${item.img}` }}
+              style={{
+                paddingLeft: 50,
+                width: 400,
+                height: 300,
+              }}
+            ></Image>
+          </View>
+
         </View>
       </Link>
     </SafeAreaView>

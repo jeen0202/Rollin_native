@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Button, Platform, ScrollView, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+
+import {
+  Button,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+
 import { Text, View } from "../../components/Themed";
 import EditScreenInfo from "../../components/EditScreenInfo";
 import { paper, user } from "../../types";
@@ -32,10 +41,16 @@ export default function PaperAddScreen({ route, navigation }: any) {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <CookieText style={styles.title}>{selectedUser?.name}님에게 Rollin보내기</CookieText>
+      <CookieText style={styles.title}>
+        {selectedUser?.name}님에게 Rollin보내기
+      </CookieText>
       {/* <TextInput>{selectedUser?.id}</TextInput> */}
       <ScrollView style={{ padding: 10 }}>
-        <TextInput style={styles.inputStyle} placeholder="사용할 닉네임" onChangeText={(nickname) => onChangeHandler("nickname", nickname)}></TextInput>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="사용할 닉네임"
+          onChangeText={(nickname) => onChangeHandler("nickname", nickname)}
+        ></TextInput>
         <TextInput
           style={styles.inputStyle}
           placeholder="작성할 내용"
@@ -45,7 +60,11 @@ export default function PaperAddScreen({ route, navigation }: any) {
         ></TextInput>
       </ScrollView>
       <TouchableOpacity style={styles.checkInput} onPress={() => submitPaper()}>
-        <CookieText style={{ fontSize: 20, textAlign: "center" }}>작성 완료</CookieText>
+
+        <CookieText style={{ fontSize: 25, textAlign: "center" }}>
+          작성 완료
+        </CookieText>
+
       </TouchableOpacity>
 
       {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
@@ -79,8 +98,12 @@ const styles = StyleSheet.create({
     }),
   },
   checkInput: {
-    backgroundColor: "#CCCCFF",
+
+    backgroundColor: "#FFDC37",
     color: "black",
     alignItems: "center",
+    borderRadius: 10,
+    margin: 10,
+
   },
 });

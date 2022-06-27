@@ -23,14 +23,18 @@ const TabOneScreen = ({}) => {
       </View>
       <View
         style={{
-          backgroundColor: "#CCCCFF",
+
+          backgroundColor: "#FFDC37",
+
           alignItems: "center",
         }}
       >
         <Link to={{ screen: "BoardAdd" }}>
           <CookieText
             style={{
-              backgroundColor: "#CCCCFF",
+
+              backgroundColor: "#FFDC37",
+
               color: "black",
               fontSize: 30,
             }}

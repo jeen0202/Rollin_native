@@ -1,6 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { Button, Image, Platform, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+
+import {
+  Button,
+  Dimensions,
+  Image,
+  Platform,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+
 import { Item } from "react-native-picker-select";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -13,6 +23,9 @@ import { useEffect } from "react";
 import { user } from "../types";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CookieText } from "../components/StyledText";
+
+import { constants } from "buffer";
+
 
 const GiftDetailScreen = ({ navigation }: any) => {
   const gift = useSelector((state: RootState) => state.gifts.detailGift.gift!);
@@ -83,10 +96,20 @@ const GiftDetailScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <CookieText style={styles.title}>{gift?.content}</CookieText>
-      <Image source={{ uri: `${IMG_PATH}${gift?.img}` }} style={{ width: 400, height: 300, borderRadius: 10 }} key={gift?.id}></Image>
+
+      <Image
+        source={{ uri: `${IMG_PATH}${gift?.img}` }}
+        style={{ width: 400, height: 300, borderRadius: 10 }}
+        key={gift?.id}
+      ></Image>
       <View style={{ flexDirection: "row", marginTop: 10 }}>
         <CookieText style={{ flex: 0.4, fontSize: 20 }}>닉네임</CookieText>
-        <TextInput style={styles.inputStyle} placeholder="닉네임을 입력하세요" onChangeText={(newNickName) => setNickName(newNickName)}></TextInput>
+        <TextInput
+          style={styles.inputStyle}
+          placeholder="닉네임을 입력하세요"
+          onChangeText={(newNickName) => setNickName(newNickName)}
+        ></TextInput>
+
       </View>
       <View style={{ flexDirection: "row", marginTop: 10 }}>
         <CookieText style={{ flex: 0.3, fontSize: 20 }}>받는 사람</CookieText>
@@ -95,6 +118,7 @@ const GiftDetailScreen = ({ navigation }: any) => {
             onValueChange={(value) => setForm({ ...form, userId: value })}
             placeholder={{ label: "받는사람", value: null }}
             items={receiverList}
+
           ></RNPickerSelect>
         </View>
       </View>
@@ -109,14 +133,20 @@ const GiftDetailScreen = ({ navigation }: any) => {
           style={{ ...styles.inputStyle }}
         />
       </View>
-      <View style={{ flexDirection: "row", justifyContent: "space-evenly", marginTop: 10 }}>
+
+      <View style={styles.button}>
         <TouchableOpacity style={styles.checkInput} onPress={() => onSubmit()}>
-          <CookieText style={{ fontSize: 20, textAlign: "center" }}>선물하기</CookieText>
+          <CookieText style={{ fontSize: 25, textAlign: "center" }}>
+            선물하기
+          </CookieText>
         </TouchableOpacity>
         {/* <Button title="선물하기" onPress={() => onSubmit} color="blue"></Button> */}
-        <TouchableOpacity style={styles.checkInput} onPress={() => onCancle()}>
-          <CookieText style={{ fontSize: 20, textAlign: "center" }}>취소</CookieText>
-        </TouchableOpacity>
+        {/* <TouchableOpacity style={styles.checkInput} onPress={() => onCancle()}>
+          <CookieText style={{ fontSize: 20, textAlign: "center" }}>
+            취소
+          </CookieText>
+        </TouchableOpacity> */}
+
         {/* <Button title="취소" onPress={() => onCancle} color="blue"></Button> */}
       </View>
     </SafeAreaView>
@@ -124,6 +154,8 @@ const GiftDetailScreen = ({ navigation }: any) => {
 };
 
 export default GiftDetailScreen;
+
+const fullWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
@@ -158,9 +190,19 @@ const styles = StyleSheet.create({
     }),
   },
   checkInput: {
-    flex: 0.2,
-    backgroundColor: "#CCCCFF",
+
+    flex: 0.8,
+    backgroundColor: "#FFDC37",
+    borderRadius: 10,
     color: "black",
-    alignItems: "center",
+    alignItems: "stretch",
+    fontSize: 25,
+  },
+  button: {
+    width: fullWidth * 0.9,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    marginTop: 10,
+
   },
 });

@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { GestureResponderEvent, Platform, SafeAreaView, TouchableOpacity } from "react-native";
+
+import {
+  GestureResponderEvent,
+  Platform,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
+
 import { StyleSheet, TextInput, Button, Image, FlatList } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import RNPickerSelect from "react-native-picker-select";
@@ -35,6 +42,9 @@ const GiftScreen = ({ navigation }: any) => {
     dispatch(updateView(Number.parseInt(id)));
 
     // 로그인한 아이디값 필요
+
+    //dispatch(getReceivers(1));
+
     dispatch(getReceivers(myId));
 
     navigation.navigate("GiftDetail");
@@ -45,10 +55,16 @@ const GiftScreen = ({ navigation }: any) => {
       <View style={{ margin: 30, flex: 0.5 }}>
         {/* <Link to={{ screen: "GiftDetail", params: item }}> */}
         <TouchableOpacity onPress={() => goDetail(item.id)}>
-          <Image source={{ uri: `${IMG_PATH}${item.img}` }} style={{ width: 140, height: 100, borderRadius: 10 }} key={item.id}></Image>
-          <Text ellipsizeMode="tail" style={{ textAlign: "center" }}>
+
+          <Image
+            source={{ uri: `${IMG_PATH}${item.img}` }}
+            style={{ width: 140, height: 100, borderRadius: 10 }}
+            key={item.id}
+          ></Image>
+          <CookieText ellipsizeMode="tail" style={{ textAlign: "center" }}>
+
             {item.name}
-          </Text>
+          </CookieText>
         </TouchableOpacity>
         {/* </Link> */}
       </View>
@@ -71,14 +87,29 @@ const GiftScreen = ({ navigation }: any) => {
               ]}
             ></RNPickerSelect>
           </View>
-          <TextInput style={styles.inputStyle} placeholder="Search..." onChangeText={(newText) => setSearchKey(newText)}></TextInput>
-          <TouchableOpacity style={styles.checkInput} onPress={() => onSubmitSearch()}>
-            <CookieText style={{ fontSize: 20, textAlign: "center" }}>검색</CookieText>
+
+          <TextInput
+            style={styles.inputStyle}
+            placeholder="Search..."
+            onChangeText={(newText) => setSearchKey(newText)}
+          ></TextInput>
+          <TouchableOpacity
+            style={styles.checkInput}
+            onPress={() => onSubmitSearch()}
+          >
+            <CookieText style={{ fontSize: 22, textAlign: "center" }}>
+              검색
+            </CookieText>
+
           </TouchableOpacity>
           {/* <Button title="검색" onPress={onSubmitSearch} color="black"></Button> */}
         </View>
         <View>
-          <CookieText>총상품개수 : {allGifts.length}</CookieText>
+
+          <CookieText style={{ margin: 10 }}>
+            총상품개수 : {allGifts.length}
+          </CookieText>
+
         </View>
         <View style={{ flex: 1, flexWrap: "nowrap", flexDirection: "row" }}>
           <FlatList data={allGifts} renderItem={(item) => renderGifts(item)} numColumns={2} disableVirtualization></FlatList>
@@ -93,17 +124,42 @@ export default GiftScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  textInput: {},
+  body: {
+    flex: 4,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  search: {
+    flexDirection: "row",
+    margin: 10,
+    alignItems: "stretch",
+  },
+  inputStyle: {
+    fontSize: 20,
+    flex: 0.7,
+    margin: 12,
+    borderBottomWidth: 0.2,
+    borderBottomColor: "gray",
+    ...Platform.select({
+      ios: {
+        fontFamily: "cookieRun",
+        fontWeight: "600",
+        fontStyle: "normal",
+      },
+      android: {
+        fontFamily: "cookieRun",
+      },
+    }),
+  },
+  checkInput: {
+    flex: 0.2,
+    margin: 15,
+    borderRadius: 10,
+    // backgroundColor: "#CCCCFF",
+    backgroundColor: "#FFDC37",
+    color: "black",
+    alignItems: "center",
   },
   inputStyle: {
     fontSize: 20,
