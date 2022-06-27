@@ -98,7 +98,11 @@ function RootNavigator() {
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="Gift" component={GiftScreen} />
-        <Stack.Screen name="GiftDetail" component={GiftDetailScreen} />
+        <Stack.Screen
+          name="GiftDetail"
+          component={GiftDetailScreen}
+          options={{ title: "선물보내기" }}
+        />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -158,6 +162,7 @@ function BottomTabNavigator() {
         component={GiftScreen}
         options={({ navigation }: RootTabScreenProps<"Gift">) => ({
           title: "선물하기",
+          headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         })}
       />

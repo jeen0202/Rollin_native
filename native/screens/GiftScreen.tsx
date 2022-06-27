@@ -13,6 +13,7 @@ import {
   updateView,
 } from "../app/gifts";
 import { RootState } from "../app/store";
+import { Row } from "reactstrap";
 
 const GiftScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
@@ -65,19 +66,54 @@ const GiftScreen = ({ navigation }: any) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
-        <View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "stretch",
+          backgroundColor: "#FABEBE",
+        }}
+      >
+        <Text style={{ paddingTop: 50, fontSize: 30 }}>선물하기</Text>
+
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-around",
+            backgroundColor: "#FABEBE",
+          }}
+        >
           <TextInput
+            style={{
+              marginTop: 20,
+              paddingHorizontal: 10,
+              height: 40,
+              borderRadius: 10,
+              borderColor: "gray",
+              borderWidth: 1,
+            }}
             placeholder="Search..."
             onChangeText={(newText) => setSearchKey(newText)}
           ></TextInput>
-          <Button title="검색" onPress={onSubmitSearch} color="blue"></Button>
+          <Button
+            title="검색"
+            onPress={onSubmitSearch}
+            color="#F07878"
+          ></Button>
         </View>
-        <View>
-          <Text>총상품개수 : {allGifts.length}</Text>
+      </View>
+
+      <View style={styles.body}>
+        <View
+          style={{
+            backgroundColor: "#FFF0F0",
+            borderRadius: 10,
+            alignItems: "flex-end",
+          }}
+        >
           <RNPickerSelect
             onValueChange={(value) => setSortKey(value)}
-            placeholder={{ label: "정렬", value: null }}
+            placeholder={{ color: "#FF6E6E", label: "정렬", value: null }}
             items={[
               { label: "구매순", value: "count" },
               { label: "조회순", value: "view" },
@@ -86,13 +122,18 @@ const GiftScreen = ({ navigation }: any) => {
             ]}
           ></RNPickerSelect>
         </View>
-        <View style={{ flex: 1, flexWrap: "nowrap", flexDirection: "row" }}>
-          <FlatList
-            data={allGifts}
-            renderItem={(item) => renderGifts(item)}
-            numColumns={2}
-            disableVirtualization
-          ></FlatList>
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, alignItems: "center", margin: 10 }}>
+            <Text>총상품개수 : {allGifts.length}</Text>
+          </View>
+          <View style={{ flex: 20, flexWrap: "nowrap", flexDirection: "row" }}>
+            <FlatList
+              data={allGifts}
+              renderItem={(item) => renderGifts(item)}
+              numColumns={2}
+              disableVirtualization
+            ></FlatList>
+          </View>
         </View>
       </View>
     </View>
@@ -104,16 +145,15 @@ export default GiftScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
   },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
+  textInput: {},
+  body: {
+    flex: 4,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
+  search: {
+    flexDirection: "row",
+    margin: 10,
+    alignItems: "stretch",
   },
 });
