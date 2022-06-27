@@ -12,9 +12,9 @@ function* handleInsertBoards(action) {
   try {
     console.log("handleInsertBoards start");
     let filePath = "";
-    console.log(action.data);
+    // console.log(action.data);
     const { content, img, file } = action.data;
-    console.log("content: ", content, "img: ", img, "file: ", file);
+    // console.log("content: ", content, "img: ", img, "file: ", file);
     let uploadFile = new FormData();
     uploadFile.append("file", file);
     if (file) {

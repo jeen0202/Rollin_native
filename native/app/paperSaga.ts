@@ -38,15 +38,13 @@ function* handleGetPaperById() {
 }
 function* handleGetGiftFromId(data: any) {
   try {
-    const giftId = data.payload.giftId;
-    console.log(data.payload);
+    const giftId = data.payload;
     console.log(giftId);
-    if (giftId !== 0 && giftId !== undefined) {
-      const myGift: AxiosResponse<any, any> = yield call(defaultAxios, `/gift/${giftId}`, "get", undefined);
-      yield put(getGiftFromId(myGift.data));
-    }
+    const myGift: AxiosResponse<any, any> = yield call(defaultAxios, `/gift/${giftId}`, "get", undefined);
+    // console.log("전달 받은 선물 데이터", myGift.data);
+    yield put(getGiftFromId(myGift.data));
   } catch (error: any) {
-    console.error(error);
+    // console.error(error);
     yield put(getGiftByIdFails(error));
   }
 }

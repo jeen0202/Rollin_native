@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -12,11 +12,9 @@ import {
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
-import { ColorSchemeName, Pressable } from "react-native";
-
+import { ColorSchemeName } from "react-native";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
-import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import {
@@ -29,9 +27,13 @@ import UsersScreen from "../screens/Papers/UsersScreen";
 import PaperAddScreen from "../screens/Papers/PaperAddScreen";
 import PaperDetailScreen from "../screens/Papers/PaperDetailScreen";
 import MyPapersScreen from "../screens/Papers/MyPaperScreen";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
+import LoginScreen from "../screens/login/LoginScreen";
 import CommentScreen from "../screens/comment/CommentScreen";
 import BoardAddScreen from "../screens/BoardAddScreen";
+import JoinScreen from "../screens/login/JoinScreen";
+import PaperModalScreen from "../screens/Papers/PaperModalScreen";
 import GiftDetailScreen from "../screens/GiftDetailScreen";
 import GiftScreen from "../screens/GiftScreen";
 
@@ -40,12 +42,13 @@ export default function Navigation({
 }: {
   colorScheme: ColorSchemeName;
 }) {
+  const isLogin = useSelector((state: RootState) => state.user.isLogin);
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
       theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}
     >
-      <RootNavigator />
+      {isLogin ? <RootNavigator /> : <LoginNavigator />}
     </NavigationContainer>
   );
 }
@@ -57,8 +60,6 @@ export default function Navigation({
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  //강제 로그인
-  //AsyncStorage.setItem("loginUser", "bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjU2MTM2MjM5fQ.dbPPdeNGV9-0Wwl0IOa7HnJnJCYHyf5fTct3K1Oes_Y");
   return (
     <Stack.Navigator
       screenOptions={{
@@ -77,7 +78,12 @@ function RootNavigator() {
         options={{ title: "Oops!" }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        {/* <Stack.Screen name="Modal" component={ModalScreen} /> */}
+        <Stack.Screen
+          name="PaperModal"
+          component={PaperModalScreen}
+          options={{ title: "선물확인" }}
+        />
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="MyPapers" component={MyPapersScreen} />
@@ -108,6 +114,42 @@ function RootNavigator() {
   );
 }
 
+const LoginTab = createBottomTabNavigator<RootTabParamList>();
+
+function LoginNavigator() {
+  const colorScheme = useColorScheme();
+  return (
+    <LoginTab.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarStyle: { backgroundColor: "beige" },
+      }}
+    >
+      <LoginTab.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: "로그인",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person" size={25} color={color} />
+          ),
+        }}
+      ></LoginTab.Screen>
+      <LoginTab.Screen
+        name="Join"
+        component={JoinScreen}
+        options={{
+          title: "회원가입",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="person-add" size={25} color={color} />
+          ),
+        }}
+      ></LoginTab.Screen>
+    </LoginTab.Navigator>
+  );
+}
 /**
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
@@ -123,36 +165,32 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         tabBarStyle: { backgroundColor: "beige" },
+        headerShown: false,
       }}
     >
       <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
+          title: "Feed",
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate("Modal")}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}
+          //   >
+          //     <FontAwesome name="info-circle" size={25} color={Colors[colorScheme].text} style={{ marginRight: 15 }} />
+          //   </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen
         name="Users"
         component={UsersScreen}
         options={{
-          title: "쪽지",
+          title: "Paper",
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="edit" color={color} />,
         }}
@@ -161,8 +199,7 @@ function BottomTabNavigator() {
         name="Gift"
         component={GiftScreen}
         options={({ navigation }: RootTabScreenProps<"Gift">) => ({
-          title: "선물하기",
-          headerShown: false,
+          title: "Gift",
           tabBarIcon: ({ color }) => <TabBarIcon name="gift" color={color} />,
         })}
       />

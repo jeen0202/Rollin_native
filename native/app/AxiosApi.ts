@@ -4,7 +4,7 @@ import axios from "axios";
 axios.defaults.baseURL = "http://192.168.0.59:8000";
 export const IMG_PATH = "http://192.168.0.59:8000";
 export const defaultAxios = async (url: any, method: any, data: any) => {
-  console.log(`url : ${url}`);
+  // console.log(`url : ${url}`);
   return await axios({
     method,
     url,
@@ -13,24 +13,27 @@ export const defaultAxios = async (url: any, method: any, data: any) => {
   });
 };
 export const AuthAxios = async (url: any, method: any, data: any) => {
-  console.log(`url : ${url}`);
+  // console.log(`url : ${url}`);
+  const token = await AsyncStorage.getItem("loginUser");
+  // console.log(token);
   return await axios({
     method,
     url,
     data,
     headers: {
-      Authorization: ``,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
 export const fileAxios = async (url: any, method: any, data: any) => {
-  console.log(`url : ${url}`);
+  // console.log(`url : ${url}`);
+  const token = await AsyncStorage.getItem("loginUser");
   const response = await axios({
     url,
     method,
     data,
     headers: {
-      Authorization: ``,
+      Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
     },
   });

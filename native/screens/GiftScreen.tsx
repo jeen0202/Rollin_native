@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
   GestureResponderEvent,
-  KeyboardAvoidingView,
+  Platform,
+  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import { StyleSheet, TextInput, Button, Image, FlatList } from "react-native";
@@ -17,12 +18,13 @@ import {
   updateView,
 } from "../app/gifts";
 import { RootState } from "../app/store";
-import { Row } from "reactstrap";
+import { CookieText } from "../components/StyledText";
 
 const GiftScreen = ({ navigation }: any) => {
   const dispatch = useDispatch();
   const allGifts = useSelector((state: RootState) => state.gifts.allGifts);
   // const myId = localStorage.getItem("loginUser");
+  const myId = useSelector((state: RootState) => state.user.me!.id);
 
   const [searchKey, setSearchKey] = React.useState("");
   const [sortKey, setSortKey] = React.useState("default");
@@ -38,13 +40,14 @@ const GiftScreen = ({ navigation }: any) => {
   };
 
   const goDetail = (id: any) => {
-    console.log(id);
+    // console.log(id);
     dispatch(getGift(Number.parseInt(id)));
 
     dispatch(updateView(Number.parseInt(id)));
 
     // 로그인한 아이디값 필요
-    dispatch(getReceivers(1));
+    //dispatch(getReceivers(1));
+    dispatch(getReceivers(myId));
 
     navigation.navigate("GiftDetail");
   };
@@ -59,9 +62,9 @@ const GiftScreen = ({ navigation }: any) => {
             style={{ width: 140, height: 100, borderRadius: 10 }}
             key={item.id}
           ></Image>
-          <Text ellipsizeMode="tail" style={{ textAlign: "center" }}>
+          <CookieText ellipsizeMode="tail" style={{ textAlign: "center" }}>
             {item.name}
-          </Text>
+          </CookieText>
         </TouchableOpacity>
         {/* </Link> */}
       </View>
@@ -69,78 +72,51 @@ const GiftScreen = ({ navigation }: any) => {
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAvoidingView
-        style={{
-          flex: 1,
-          alignItems: "stretch",
-          backgroundColor: "#FABEBE",
-        }}
-      >
-        <View style={{ backgroundColor: "#FABEBE", alignItems: "center" }}>
-          <Text style={{ paddingTop: 50, fontSize: 30 }}>선물하기</Text>
-        </View>
-        <KeyboardAvoidingView
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-around",
-            backgroundColor: "#FABEBE",
-          }}
-        >
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ flex: 0.2, justifyContent: "center" }}>
+            <RNPickerSelect
+              onValueChange={(value) => setSortKey(value)}
+              placeholder={{ label: "정렬", value: null }}
+              items={[
+                { label: "구매순", value: "count" },
+                { label: "조회순", value: "view" },
+                { label: "가격높은순", value: "hprice" },
+                { label: "가격낮은순", value: "lprice" },
+              ]}
+            ></RNPickerSelect>
+          </View>
           <TextInput
-            style={{
-              marginTop: 20,
-              paddingHorizontal: 10,
-              height: 40,
-              borderRadius: 10,
-              borderColor: "gray",
-              borderWidth: 1,
-            }}
+            style={styles.inputStyle}
             placeholder="Search..."
             onChangeText={(newText) => setSearchKey(newText)}
           ></TextInput>
-          <Button
-            title="검색"
-            onPress={onSubmitSearch}
-            color="#F07878"
-          ></Button>
-        </KeyboardAvoidingView>
-      </KeyboardAvoidingView>
-
-      <KeyboardAvoidingView style={styles.body}>
-        <KeyboardAvoidingView
-          style={{
-            backgroundColor: "#FFF0F0",
-            borderRadius: 10,
-            alignItems: "flex-end",
-          }}
-        >
-          <RNPickerSelect
-            onValueChange={(value) => setSortKey(value)}
-            placeholder={{ color: "#FF6E6E", label: "정렬", value: null }}
-            items={[
-              { label: "구매순", value: "count" },
-              { label: "조회순", value: "view" },
-              { label: "가격높은순", value: "hprice" },
-              { label: "가격낮은순", value: "lprice" },
-            ]}
-          ></RNPickerSelect>
-        </KeyboardAvoidingView>
-        <KeyboardAvoidingView style={{ flex: 1 }}>
-          <View style={{ flex: 1, alignItems: "center", margin: 10 }}>
-            <Text>총상품개수 : {allGifts.length}</Text>
-          </View>
-          <View style={{ flex: 20, flexWrap: "nowrap", flexDirection: "row" }}>
-            <FlatList
-              data={allGifts}
-              renderItem={(item) => renderGifts(item)}
-              numColumns={2}
-              disableVirtualization
-            ></FlatList>
-          </View>
-        </KeyboardAvoidingView>
-      </KeyboardAvoidingView>
-    </View>
+          <TouchableOpacity
+            style={styles.checkInput}
+            onPress={() => onSubmitSearch()}
+          >
+            <CookieText style={{ fontSize: 22, textAlign: "center" }}>
+              검색
+            </CookieText>
+          </TouchableOpacity>
+          {/* <Button title="검색" onPress={onSubmitSearch} color="black"></Button> */}
+        </View>
+        <View>
+          <CookieText style={{ margin: 10 }}>
+            총상품개수 : {allGifts.length}
+          </CookieText>
+        </View>
+        <View style={{ flex: 1, flexWrap: "nowrap", flexDirection: "row" }}>
+          <FlatList
+            data={allGifts}
+            renderItem={(item) => renderGifts(item)}
+            numColumns={2}
+            disableVirtualization
+          ></FlatList>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -159,5 +135,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     margin: 10,
     alignItems: "stretch",
+  },
+  inputStyle: {
+    fontSize: 20,
+    flex: 0.7,
+    margin: 12,
+    borderBottomWidth: 0.2,
+    borderBottomColor: "gray",
+    ...Platform.select({
+      ios: {
+        fontFamily: "cookieRun",
+        fontWeight: "600",
+        fontStyle: "normal",
+      },
+      android: {
+        fontFamily: "cookieRun",
+      },
+    }),
+  },
+  checkInput: {
+    flex: 0.2,
+    margin: 15,
+    borderRadius: 10,
+    // backgroundColor: "#CCCCFF",
+    backgroundColor: "#FFDC37",
+    color: "black",
+    alignItems: "center",
   },
 });

@@ -22,17 +22,19 @@ const userSlice = createSlice({
       state.isLogin = false;
       state.me = undefined;
     },
-    load3: (state: userState, action: PayloadAction<Object>) => {
+    addUser: (state: userState, action: PayloadAction<user>) => {
       console.log(action.payload);
     },
-    load4: (state: userState, action: PayloadAction) => {
-      console.log(action.payload);
+    joinIdCheck: (state: userState, action: PayloadAction<user>) => {
+      console.log("ID중복체크");
+      // console.log(action.payload);
     },
-    load7: (state: userState, action: PayloadAction<Object>) => {
-      console.log(action.payload);
+    tryLogin: (state: userState, action: PayloadAction<user>) => {
+      //console.log(action.payload);
     },
-    load5: (state: userState, action: PayloadAction<number>) => {
+    setCheck: (state: userState, action: PayloadAction<number>) => {
       state.check = action.payload;
+      // console.log("setCheck : ", action.payload);
     },
     getUsers: (state: userState, action: PayloadAction<Array<user>>) => {
       state.users = action.payload;
@@ -56,5 +58,5 @@ const userSlice = createSlice({
   },
   extraReducers: {},
 });
-export const { login, logout, getUsers, load3, load4, load5, getUserById, load7, fistload, checkLogin } = userSlice.actions;
+export const { login, logout, getUsers, addUser, joinIdCheck, setCheck, getUserById, tryLogin, fistload, checkLogin } = userSlice.actions;
 export default userSlice.reducer;
