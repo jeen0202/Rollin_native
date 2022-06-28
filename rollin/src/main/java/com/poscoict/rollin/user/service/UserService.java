@@ -21,8 +21,7 @@ public interface UserService {
 
     List<UserEntity> kaoCheck(UserEntity userEntity);
 
-
     Optional<UserEntity> serviceLogin(UserEntity userEntity);
 
-
+    List<UserEntity> findReceiversNotUserId(Integer id);
 }

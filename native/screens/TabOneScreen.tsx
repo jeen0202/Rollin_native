@@ -1,32 +1,56 @@
-import { StyleSheet } from 'react-native';
+import { Link } from "@react-navigation/native";
+import { FlatList, Image, Button } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useIsFocused, useLinkTo } from "@react-navigation/native";
+import { selectAllBoards } from "../app/board";
+import { IMG_PATH } from "../app/AxiosApi";
+import { View, Text } from "../components/Themed";
+import BoardScreen from "./BoardScreen";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { CookieText } from "../components/StyledText";
+import LogoutBar from "./login/LogoutBar";
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
-
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+const TabOneScreen = ({}) => {
+  // <Button title="+" onPress={() => {linkto("/Users")}}></Button>
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
-    </View>
-  );
-}
+    <SafeAreaView style={styles.container}>
+      <LogoutBar />
+      <View style={styles.container}>
+        {/* <BoardScreen board={Boards}></BoardScreen> */}
+        <BoardScreen></BoardScreen>
+      </View>
+      <View
+        style={{
 
+          backgroundColor: "#FFDC37",
+
+          alignItems: "center",
+        }}
+      >
+        <Link to={{ screen: "BoardAdd" }}>
+          <CookieText
+            style={{
+
+              backgroundColor: "#FFDC37",
+
+              color: "black",
+              fontSize: 30,
+            }}
+          >
+            글 작성하러 가기
+          </CookieText>
+        </Link>
+      </View>
+    </SafeAreaView>
+  );
+};
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    alignContent: "center",
+    backgroundColor: "beige",
   },
 });
+export default TabOneScreen;

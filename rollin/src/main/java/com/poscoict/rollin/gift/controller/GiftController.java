@@ -3,6 +3,8 @@ package com.poscoict.rollin.gift.controller;
 import com.poscoict.rollin.gift.model.GiftEntity;
 import com.poscoict.rollin.gift.serive.GiftService;
 import com.poscoict.rollin.paper.model.PaperEntity;
+import com.poscoict.rollin.user.model.UserEntity;
+import com.poscoict.rollin.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,29 +21,14 @@ public class GiftController {
     @Autowired
     GiftService giftService;
 
+    @Autowired
+    UserService userService;
 
-
-    @GetMapping("/")
+    @GetMapping("")
     public List<GiftEntity> getAllGift(){
+        log.info("getAllGift");
+        log.info(giftService.findAllGift().toString());
         return giftService.findAllGift();
-    }
-
-    @GetMapping("/search/{name}")
-    public List<GiftEntity> getGiftByName(@PathVariable String name){
-        log.info(name);
-        return giftService.findGiftByName(name);
-    }
-    @PutMapping("/{id}")
-    public Optional<GiftEntity> updateGiftView(
-            @PathVariable String id
-    ) {
-        return giftService.viewCount(Integer.valueOf(id));
-    }
-
-    @GetMapping("/{id}")
-    public Optional<GiftEntity> getGiftById(@PathVariable String id){
-        log.info("getGiftById 실행");
-        return giftService.getGiftById(Integer.valueOf(id));
     }
 
     // insertGift(papaer에 등록)
@@ -54,5 +41,31 @@ public class GiftController {
 
         return new ResponseEntity<>(httpStatus);
     }
+
+    @GetMapping("/{id}")
+    public Optional<GiftEntity> getGiftById(@PathVariable String id){
+        log.info("getGiftById 실행");
+        return giftService.getGiftById(Integer.valueOf(id));
+    }
+
+    @GetMapping("/search/{name}")
+    public List<GiftEntity> getGiftByName(@PathVariable String name){
+        log.info(name);
+        return giftService.findGiftByName(name);
+    }
+
+    @GetMapping("/receiver/{id}")
+    public List<UserEntity> getReceiversNotUserId(@PathVariable String id){
+        return userService.findReceiversNotUserId(Integer.valueOf(id));
+    }
+
+    @PutMapping("/{id}")
+    public Optional<GiftEntity> updateGiftView(
+            @PathVariable String id
+    ) {
+        return giftService.viewCount(Integer.valueOf(id));
+    }
+
+
 
 }
