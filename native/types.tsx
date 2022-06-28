@@ -138,19 +138,3 @@ export const InputStyles = StyleSheet.create({
     }),
   },
 });
-export const InputStyles = StyleSheet.create({
-  inputStyle: {
-    fontSize: 20,
-    margin: 10,
-    ...Platform.select({
-      ios: {
-        fontFamily: "cookieRun",
-        fontWeight: "600",
-        fontStyle: "normal",
-      },
-      android: {
-        fontFamily: "cookieRun",
-      },
-    }),
-  },
-});
