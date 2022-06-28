@@ -29,9 +29,6 @@ import JoinScreen from "../screens/login/JoinScreen";
 import PaperModalScreen from "../screens/Papers/PaperModalScreen";
 import GiftDetailScreen from "../screens/GiftDetailScreen";
 import GiftScreen from "../screens/GiftScreen";
-import JoinScreen from "../screens/login/JoinScreen";
-import PaperModalScreen from "../screens/Papers/PaperModalScreen";
-
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   const isLogin = useSelector((state: RootState) => state.user.isLogin);
@@ -57,7 +54,6 @@ function RootNavigator() {
         {/* <Stack.Screen name="Modal" component={ModalScreen} /> */}
 
         <Stack.Screen name="PaperModal" component={PaperModalScreen} options={{ title: "선물확인" }} />
-
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="MyPapers" component={MyPapersScreen} />
@@ -70,11 +66,7 @@ function RootNavigator() {
       </Stack.Group>
       <Stack.Group>
         <Stack.Screen name="Gift" component={GiftScreen} />
-        <Stack.Screen
-          name="GiftDetail"
-          component={GiftDetailScreen}
-          options={{ title: "선물보내기" }}
-        />
+        <Stack.Screen name="GiftDetail" component={GiftDetailScreen} options={{ title: "선물보내기" }} />
       </Stack.Group>
     </Stack.Navigator>
   );
@@ -100,7 +92,6 @@ function LoginNavigator() {
           title: "로그인",
 
           tabBarIcon: ({ color }) => <Ionicons name="person" size={25} color={color} />,
-
         }}
       ></LoginTab.Screen>
       <LoginTab.Screen
@@ -110,7 +101,6 @@ function LoginNavigator() {
           title: "회원가입",
 
           tabBarIcon: ({ color }) => <Ionicons name="person-add" size={25} color={color} />,
-
         }}
       ></LoginTab.Screen>
     </LoginTab.Navigator>

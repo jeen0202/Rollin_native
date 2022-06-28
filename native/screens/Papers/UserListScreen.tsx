@@ -1,10 +1,10 @@
 import { Link } from "@react-navigation/native";
-import { FlatList, Image } from "react-native";
+import { FlatList, Image, ListRenderItem } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { CookieText } from "../../components/StyledText";
 import { View, Text } from "../../components/Themed";
-import { listStyles, UserListProps } from "../../types";
+import { listStyles, user, UserListProps } from "../../types";
 
 export default function UserListScreen(props: UserListProps) {
   const me = useSelector((state: RootState) => state.user.me);
@@ -12,14 +12,14 @@ export default function UserListScreen(props: UserListProps) {
     <FlatList
       style={{ backgroundColor: "beige" }}
       data={props.listdata}
-      renderItem={(item: any) => <RenderItem item={item} me={me} />}
+      renderItem={(item: ListRenderItem<user>) => <RenderItem item={item.item} me={me} />}
       numColumns={3}
       disableVirtualization={false}
     ></FlatList>
   );
 }
 function RenderItem(props: any) {
-  const { item } = props.item;
+  const item = props.item;
   const me = props.me;
   return (
     <View style={{ margin: 10, backgroundColor: "beige" }}>

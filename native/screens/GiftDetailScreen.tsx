@@ -1,15 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 
-import {
-  Button,
-  Dimensions,
-  Image,
-  Platform,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { Button, Dimensions, Image, Platform, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 
 import { Item } from "react-native-picker-select";
 import { useDispatch } from "react-redux";
@@ -25,7 +17,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { CookieText } from "../components/StyledText";
 
 import { constants } from "buffer";
-
 
 const GiftDetailScreen = ({ navigation }: any) => {
   const gift = useSelector((state: RootState) => state.gifts.detailGift.gift!);
@@ -97,19 +88,10 @@ const GiftDetailScreen = ({ navigation }: any) => {
     <SafeAreaView style={styles.container}>
       <CookieText style={styles.title}>{gift?.content}</CookieText>
 
-      <Image
-        source={{ uri: `${IMG_PATH}${gift?.img}` }}
-        style={{ width: 400, height: 300, borderRadius: 10 }}
-        key={gift?.id}
-      ></Image>
+      <Image source={{ uri: `${IMG_PATH}${gift?.img}` }} style={{ width: 400, height: 300, borderRadius: 10 }} key={gift?.id}></Image>
       <View style={{ flexDirection: "row", marginTop: 10 }}>
         <CookieText style={{ flex: 0.4, fontSize: 20 }}>닉네임</CookieText>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder="닉네임을 입력하세요"
-          onChangeText={(newNickName) => setNickName(newNickName)}
-        ></TextInput>
-
+        <TextInput style={styles.inputStyle} placeholder="닉네임을 입력하세요" onChangeText={(newNickName) => setNickName(newNickName)}></TextInput>
       </View>
       <View style={{ flexDirection: "row", marginTop: 10 }}>
         <CookieText style={{ flex: 0.3, fontSize: 20 }}>받는 사람</CookieText>
@@ -118,7 +100,6 @@ const GiftDetailScreen = ({ navigation }: any) => {
             onValueChange={(value) => setForm({ ...form, userId: value })}
             placeholder={{ label: "받는사람", value: null }}
             items={receiverList}
-
           ></RNPickerSelect>
         </View>
       </View>
@@ -136,9 +117,7 @@ const GiftDetailScreen = ({ navigation }: any) => {
 
       <View style={styles.button}>
         <TouchableOpacity style={styles.checkInput} onPress={() => onSubmit()}>
-          <CookieText style={{ fontSize: 25, textAlign: "center" }}>
-            선물하기
-          </CookieText>
+          <CookieText style={{ fontSize: 25, textAlign: "center" }}>선물하기</CookieText>
         </TouchableOpacity>
         {/* <Button title="선물하기" onPress={() => onSubmit} color="blue"></Button> */}
         {/* <TouchableOpacity style={styles.checkInput} onPress={() => onCancle()}>
@@ -190,7 +169,6 @@ const styles = StyleSheet.create({
     }),
   },
   checkInput: {
-
     flex: 0.8,
     backgroundColor: "#FFDC37",
     borderRadius: 10,
@@ -203,6 +181,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     marginTop: 10,
-
   },
 });
